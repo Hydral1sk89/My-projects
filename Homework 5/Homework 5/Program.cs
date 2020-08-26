@@ -57,6 +57,42 @@ namespace Example_005
         // 1. Ответ: А
         // 2. ГГГГ, ДДДД
 
+       public static string LongShortText(string text)
+        {
+            int min=0;
+            int max=0;
+            int difference=0;
+
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i] == ' ' || text[i] == '.' || text[i] == ',')
+                {
+                    max = i;
+                    if (difference == 0) difference = max - min;
+                    if ((max - min) < difference) difference = max - min;
+                    else min = max;
+                }
+            }
+
+            char[] result = new char[difference];
+            for(int i = 0; i < difference; i++)
+            {
+                result[i] = text[min];
+                min++;
+            }
+
+            string output;
+            //преобразуем массив char в строку text
+            StringBuilder sb = new StringBuilder();
+
+            foreach (char ch in result)
+                sb.Append(ch);
+            output = sb.ToString();
+
+            return output; 
+        }
+
+
 
         #region Задание_3
         /// <summary>
@@ -184,8 +220,7 @@ namespace Example_005
 
         static void Main(string[] args)
         {
-
-            Console.WriteLine(Word("хХххоООооорРРрррроООоооошШШшшшииииийййй"));
+            Console.WriteLine(LongShortText("7777777 55555 333"));
 
             //#region Задание_4
             //double[] Chisla = new double[5];
