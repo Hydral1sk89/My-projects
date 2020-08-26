@@ -1,9 +1,4 @@
-﻿// Проверка
-
-
-
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,38 +44,57 @@ using System.Threading.Tasks;
 // Весь код должен быть откоммментирован
 #endregion
 
-
-// Задание 3. Создать метод, принимающий текст.
-// Результатом работы метода должен быть новый текст, в котором
-// удалены все кратные рядом стоящие символы, оставив по одному
-// Пример: ПППОООГГГООООДДДААА >>> ПОГОДА
-// Пример: Ххххоооорррооошшшиий деееннннь >>> хороший день
-
 namespace Example_005
 {
 
     class Program
     {
+        // Задание 2.
+        // 1. Создать метод, принимающий  текст и возвращающий слово, содержащее минимальное количество букв
+        // 2.* Создать метод, принимающий  текст и возвращающий слово(слова) с максимальным количеством букв
+        // Примечание: слова в тексте могут быть разделены символами (пробелом, точкой, запятой)
+        // Пример: Текст: "A ББ ВВВ ГГГГ ДДДД  ДД ЕЕ ЖЖ ЗЗЗ"
+        // 1. Ответ: А
+        // 2. ГГГГ, ДДДД
+
+
+        #region Задание_3
+        /// <summary>
+        /// Метод проверяет текст на наличие повторяющихся символов и возвращает текст без повторно идущих друг за друга символов
+        /// </summary>
+        /// <param name="text">текст на проверку</param>
+        /// <returns></returns>
         public static string Word(string text)
         {
             char[] ChText = new char[text.Length];
 
-            for (int i = 0; i <= text.Length; i++)
-            {
-                ChText[i] = text[i];
-            }
+            //указатель
+            int pointer = 0;
 
-
-            for(int i = 0; i <= ChText.Length; i++)
+            for(int i = 0; i < text.Length - 1; i++)
             {
-                if (ChText[i] == ChText[i + 1])
+                if (i == 0)
                 {
-                    ChText[i] = ChText[i+1];
+                    ChText[pointer] = text[i];
+                    pointer++;
+                }
+                if (text[i] != text[i + 1])
+                {
+                    ChText[pointer] = text[i + 1];
+                    pointer++;
                 }
             }
 
+            //преобразуем массив char в строку text
+            StringBuilder sb = new StringBuilder();
+
+            foreach (char ch in ChText)
+            sb.Append(ch);
+            text = sb.ToString();
+
             return text;
         }
+        #endregion
 
         #region Задание_4
         /// <summary>
@@ -171,7 +185,7 @@ namespace Example_005
         static void Main(string[] args)
         {
 
-            Console.WriteLine(Word("Ххххххооооооооорррррооооооооошшшшшшиииииииийййййй ддддддееееееннннььььь"));
+            Console.WriteLine(Word("11111222223333444455555"));
 
             //#region Задание_4
             //double[] Chisla = new double[5];

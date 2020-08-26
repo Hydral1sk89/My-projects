@@ -12,3 +12,10 @@ C:\Homework 5\Homework 5\obj\Debug\Homework 5.csprojAssemblyReference.cache
 C:\Homework 5\Homework 5\obj\Debug\Homework 5.csproj.CoreCompileInputs.cache
 C:\Homework 5\Homework 5\obj\Debug\Homework 5.exe
 C:\Homework 5\Homework 5\obj\Debug\Homework 5.pdb
+C:\Users\admin\Desktop\projects\My-projects\Homework 5\Homework 5\bin\Debug\Homework 5.exe.config
+C:\Users\admin\Desktop\projects\My-projects\Homework 5\Homework 5\bin\Debug\Homework 5.exe
+C:\Users\admin\Desktop\projects\My-projects\Homework 5\Homework 5\bin\Debug\Homework 5.pdb
+C:\Users\admin\Desktop\projects\My-projects\Homework 5\Homework 5\obj\Debug\Homework 5.csprojAssemblyReference.cache
+C:\Users\admin\Desktop\projects\My-projects\Homework 5\Homework 5\obj\Debug\Homework 5.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\projects\My-projects\Homework 5\Homework 5\obj\Debug\Homework 5.exe
+C:\Users\admin\Desktop\projects\My-projects\Homework 5\Homework 5\obj\Debug\Homework 5.pdb
