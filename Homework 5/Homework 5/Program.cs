@@ -78,7 +78,7 @@ namespace Example_005
                     ChText[pointer] = text[i];
                     pointer++;
                 }
-                if (text[i] != text[i + 1])
+                if (char.ToUpper(text[i]) != char.ToUpper(text[i + 1]))
                 {
                     ChText[pointer] = text[i + 1];
                     pointer++;
@@ -185,7 +185,7 @@ namespace Example_005
         static void Main(string[] args)
         {
 
-            Console.WriteLine(Word("11111222223333444455555"));
+            Console.WriteLine(Word("хХххоООооорРРрррроООоооошШШшшшииииийййй"));
 
             //#region Задание_4
             //double[] Chisla = new double[5];

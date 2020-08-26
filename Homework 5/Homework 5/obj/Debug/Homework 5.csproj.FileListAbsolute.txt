@@ -19,3 +19,10 @@ C:\Users\admin\Desktop\projects\My-projects\Homework 5\Homework 5\obj\Debug\Home
 C:\Users\admin\Desktop\projects\My-projects\Homework 5\Homework 5\obj\Debug\Homework 5.csproj.CoreCompileInputs.cache
 C:\Users\admin\Desktop\projects\My-projects\Homework 5\Homework 5\obj\Debug\Homework 5.exe
 C:\Users\admin\Desktop\projects\My-projects\Homework 5\Homework 5\obj\Debug\Homework 5.pdb
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5\Homework 5\bin\Debug\Homework 5.exe.config
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5\Homework 5\bin\Debug\Homework 5.exe
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5\Homework 5\bin\Debug\Homework 5.pdb
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5\Homework 5\obj\Debug\Homework 5.csprojAssemblyReference.cache
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5\Homework 5\obj\Debug\Homework 5.csproj.CoreCompileInputs.cache
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5\Homework 5\obj\Debug\Homework 5.exe
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5\Homework 5\obj\Debug\Homework 5.pdb
