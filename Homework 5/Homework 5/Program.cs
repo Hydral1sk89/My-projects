@@ -59,21 +59,42 @@ namespace Example_005
 
        public static string LongShortText(string text)
         {
+            StringBuilder sb = new StringBuilder();
+
             int min=0;
             int max=0;
             int difference=0;
+            int counter = 0;
+
+            string[] strArray = new string[text.Length];
+
 
             for (int i = 0; i < text.Length; i++)
             {
+                if (i == 0) min = i;
+                if (i == text.Length - 1) max = i;                    
                 if (text[i] == ' ' || text[i] == '.' || text[i] == ',')
                 {
                     max = i;
-                    if (difference == 0) difference = max - min;
-                    if ((max - min) < difference) difference = max - min;
-                    else min = max;
+                    difference = max - min;
+                    char[] word = new char[difference];
+
+                    for (int k = 0; k <difference; k++)
+                    {
+                        word[k] = text[min];
+                        min++;
+                    }
+
+
+                    foreach (char ch in word)
+                        sb.Append(ch);
+                    strArray[counter] = sb.ToString();
+                    counter++;
+                    min = max;
                 }
             }
 
+            //записываем в массив символов результат
             char[] result = new char[difference];
             for(int i = 0; i < difference; i++)
             {
@@ -220,7 +241,7 @@ namespace Example_005
 
         static void Main(string[] args)
         {
-            Console.WriteLine(LongShortText("7777777 55555 333"));
+            Console.WriteLine(LongShortText("А ББ ВВВ ГГГГ ДДДДД ЕЕЕЕЕЕ ЁЁЁЁЁЁЁ ЖЖЖЖЖЖЖ"));
 
             //#region Задание_4
             //double[] Chisla = new double[5];
