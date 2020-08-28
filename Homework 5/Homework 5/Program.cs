@@ -49,15 +49,14 @@ namespace Example_005
 
     class Program
     {
-        // Задание 2.
-        // 1. Создать метод, принимающий  текст и возвращающий слово, содержащее минимальное количество букв
-        // 2.* Создать метод, принимающий  текст и возвращающий слово(слова) с максимальным количеством букв
-        // Примечание: слова в тексте могут быть разделены символами (пробелом, точкой, запятой)
-        // Пример: Текст: "A ББ ВВВ ГГГГ ДДДД  ДД ЕЕ ЖЖ ЗЗЗ"
-        // 1. Ответ: А
-        // 2. ГГГГ, ДДДД
 
-       public static string LongShortText(string text)
+        #region Задание_2
+        /// <summary>
+        /// Метод выводит на консоль самое длинное и самое короткое слово в тексте
+        /// </summary>
+        /// <param name="text">текст на проверку</param>
+        /// <returns></returns>
+        public static string LongShortText(string text)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -72,10 +71,11 @@ namespace Example_005
             for (int i = 0; i < text.Length; i++)
             {
                 if (i == 0) min = i;
-                if (i == text.Length - 1) max = i;                    
-                if (text[i] == ' ' || text[i] == '.' || text[i] == ',')
+                //if (i == text.Length - 1) max = i;                    
+                if (text[i] == ' ' || text[i] == '.' || text[i] == ',' || i == text.Length-1)
                 {
                     max = i;
+                    if (i == text.Length - 1) max = i + 1;
                     difference = max - min;
                     char[] word = new char[difference];
 
@@ -85,35 +85,31 @@ namespace Example_005
                         min++;
                     }
 
-
                     foreach (char ch in word)
                         sb.Append(ch);
                     strArray[counter] = sb.ToString();
                     counter++;
-                    min = max;
+                    min = max+1;
+                    sb.Clear();
                 }
             }
 
-            //записываем в массив символов результат
-            char[] result = new char[difference];
-            for(int i = 0; i < difference; i++)
+            string minStr=strArray[0];
+            string maxStr=strArray[0];
+
+            for(int i = 0; i < text.Length; i++)
             {
-                result[i] = text[min];
-                min++;
+                if (strArray[i] == null) break;
+                if (minStr.Length > strArray[i].Length) minStr = strArray[i];
+                if (maxStr.Length < strArray[i].Length) maxStr = strArray[i];
             }
 
-            string output;
-            //преобразуем массив char в строку text
-            StringBuilder sb = new StringBuilder();
+            Console.WriteLine($"Слово с максимальным количеством букв: {maxStr}");
+            Console.WriteLine($"Слово с минимальным количеством букв: {minStr}");
 
-            foreach (char ch in result)
-                sb.Append(ch);
-            output = sb.ToString();
-
-            return output; 
+            return ""; 
         }
-
-
+        #endregion
 
         #region Задание_3
         /// <summary>
@@ -241,7 +237,9 @@ namespace Example_005
 
         static void Main(string[] args)
         {
-            Console.WriteLine(LongShortText("А ББ ВВВ ГГГГ ДДДДД ЕЕЕЕЕЕ ЁЁЁЁЁЁЁ ЖЖЖЖЖЖЖ"));
+            LongShortText("ДДДДД ГГГГ ВВВ ББ А");
+
+            //Console.WriteLine(LongShortText("А ББ ВВВ ГГГГ ДДДДД ЕЕЕЕЕЕ ЁЁЁЁЁЁЁ ЖЖЖЖЖЖЖ"));
 
             //#region Задание_4
             //double[] Chisla = new double[5];
