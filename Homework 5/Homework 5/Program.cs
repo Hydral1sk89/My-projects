@@ -49,6 +49,76 @@ namespace Example_005
 
     class Program
     {
+        // Задание 1.
+        // Воспользовавшись решением задания 3 четвертого модуля
+        // 1.1. Создать метод, принимающий число и матрицу, возвращающий матрицу умноженную на число
+        // 1.2. Создать метод, принимающий две матрицу, возвращающий их сумму
+        // 1.3. Создать метод, принимающий две матрицу, возвращающий их произведение
+
+        #region Задание_1
+        public static int[,] Task1_1 (int number, int[,] matrix)
+        {
+                string strNumb;              
+
+                bool isNumb = false;
+
+                string str;
+
+                //это количество строк в матрице
+                int strInt = matrix.GetLength(0);
+
+                bool isNum = false;
+
+                string column;
+
+                //это количество столбцов в матрице
+                int columnInt = matrix.GetLength(1);
+
+                bool isNumColumn = false;
+
+                int[,] arrayA = new int[strInt, columnInt];
+                int[,] arrayB = new int[strInt, columnInt];
+
+                //Умножаем матрицу на число и записываем результат в массив arrayB
+                for (int i = 0; i < strInt; i++)
+                {
+                    for (int j = 0; j < columnInt; j++)
+                    {  
+                        arrayB[i, j] = matrix[i, j] * number;
+                    }
+                }
+
+                //Вывод на экран
+                for (int i = 0; i < strInt; i++)
+                {
+                    if (i == strInt / 2 && number < 10) Console.Write($"  {number} х |  ");
+                    if (i == strInt / 2 && number > 9) Console.Write($" {number} х |  ");
+                    if (i != strInt / 2) Console.Write("      |  ");
+
+                    for (int k = 0; k < columnInt; k++)
+                    {
+                        Console.Write(matrix[i, k]);
+                        Console.Write("  ");
+                    }
+
+                    if (i == strInt / 2) Console.Write("| = |  ");
+                    else Console.Write("|   |  ");
+
+                    for (int k = 0; k < columnInt; k++)
+                    {
+                        Console.Write(String.Format("{0,3:0}", arrayB[i, k]));
+                        Console.Write("  ");
+                    }
+                    Console.Write("|");
+
+                    Console.WriteLine();
+                }
+
+                Console.ReadLine();
+
+            return arrayB;           
+        }
+        #endregion
 
         #region Задание_2
         /// <summary>
@@ -237,7 +307,24 @@ namespace Example_005
 
         static void Main(string[] args)
         {
-            LongShortText("ДДДДД ГГГГ ВВВ ББ А");
+            Random rnd = new Random();
+
+            int[,] m = new int[5, 5];
+            
+
+            for (int i = 0; i < m.GetLength(0); i++)
+            {
+                for (int k = 0; k < m.GetLength(1); k++)
+                {
+                    m[i, k] = rnd.Next(0, 5);
+                }
+            }
+
+            Task1_1(5, m);
+
+
+
+            //LongShortText("ДДДДД ГГГГ ВВВ ББ А");
 
             //Console.WriteLine(LongShortText("А ББ ВВВ ГГГГ ДДДДД ЕЕЕЕЕЕ ЁЁЁЁЁЁЁ ЖЖЖЖЖЖЖ"));
 
