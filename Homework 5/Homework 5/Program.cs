@@ -447,12 +447,24 @@ namespace Example_005
 
             string minStr=strArray[0];
             string maxStr=strArray[0];
+            int StrLength;
 
-            for(int i = 0; i < text.Length; i++)
+            for (int i = 0; i < text.Length; i++)
             {
                 if (strArray[i] == null) break;
                 if (minStr.Length > strArray[i].Length) minStr = strArray[i];
                 if (maxStr.Length < strArray[i].Length) maxStr = strArray[i];
+            }
+
+            StrLength = maxStr.Length;
+
+            for (int k = 0; k < text.Length; k++)
+            {
+                if (strArray[k] == null) break;
+                if (StrLength == strArray[k].Length && maxStr != strArray[k])
+                {
+                    maxStr += " " + strArray[k];
+                }
             }
 
             Console.WriteLine($"Слово с максимальным количеством букв: {maxStr}");
@@ -585,9 +597,28 @@ namespace Example_005
         }
         #endregion
 
+        #region Задание_5
+        /// <summary>
+        /// Метод вычисляет функцию Аккермана
+        /// </summary>
+        /// <param name="m">значение m</param>
+        /// <param name="n">значение n</param>
+        /// <returns></returns>
+        public static int Akkerman(int m, int n)
+        {
+            if (m == 0) return n + 1;
+            if (m > 0 && n == 0) return Akkerman(m - 1, 1);
+            if (m > 0 && n > 0) return Akkerman(m - 1, Akkerman(m, n - 1));
+
+            return Akkerman(m, n);
+        }
+        #endregion
+
 
         static void Main(string[] args)
         {
+            //Задание 5
+            //Console.WriteLine(Akkerman(3,4));
 
             ////Задание 1_2 и 1_3
             //Random rnd = new Random();
@@ -633,8 +664,8 @@ namespace Example_005
             //Task1_1(5, m);
 
 
-
-            //LongShortText("ДДДДД ГГГГ ВВВ ББ А");
+            //Задание 2
+            //LongShortText("1 22 333 4444 55555 77777 88888 33333 11111 00000 CCCCC");
 
             //Console.WriteLine(LongShortText("А ББ ВВВ ГГГГ ДДДДД ЕЕЕЕЕЕ ЁЁЁЁЁЁЁ ЖЖЖЖЖЖЖ"));
 
