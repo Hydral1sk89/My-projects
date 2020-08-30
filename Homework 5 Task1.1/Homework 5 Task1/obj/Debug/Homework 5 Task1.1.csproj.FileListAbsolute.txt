@@ -1,0 +1,14 @@
+d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 5 Task1\Homework 5 Task1\bin\Debug\Homework 5 Task1.exe.config
+d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 5 Task1\Homework 5 Task1\bin\Debug\Homework 5 Task1.exe
+d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 5 Task1\Homework 5 Task1\bin\Debug\Homework 5 Task1.pdb
+d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 5 Task1\Homework 5 Task1\obj\Debug\Homework 5 Task1.1.csprojAssemblyReference.cache
+d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 5 Task1\Homework 5 Task1\obj\Debug\Homework 5 Task1.1.csproj.CoreCompileInputs.cache
+d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 5 Task1\Homework 5 Task1\obj\Debug\Homework 5 Task1.exe
+d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 5 Task1\Homework 5 Task1\obj\Debug\Homework 5 Task1.pdb
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5 Task1.1\Homework 5 Task1\bin\Debug\Homework 5 Task1.exe.config
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5 Task1.1\Homework 5 Task1\bin\Debug\Homework 5 Task1.exe
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5 Task1.1\Homework 5 Task1\bin\Debug\Homework 5 Task1.pdb
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5 Task1.1\Homework 5 Task1\obj\Debug\Homework 5 Task1.1.csprojAssemblyReference.cache
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5 Task1.1\Homework 5 Task1\obj\Debug\Homework 5 Task1.1.csproj.CoreCompileInputs.cache
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5 Task1.1\Homework 5 Task1\obj\Debug\Homework 5 Task1.exe
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5 Task1.1\Homework 5 Task1\obj\Debug\Homework 5 Task1.pdb
