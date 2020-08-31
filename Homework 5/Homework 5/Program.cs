@@ -648,20 +648,20 @@ namespace Example_005
             //Task1_3(m, n);
 
             //Задание 1_1
-            //Random rnd = new Random();
+            Random rnd = new Random();
 
-            //int[,] m = new int[5, 5];
+            int[,] m = new int[5, 5];
 
 
-            //for (int i = 0; i < m.GetLength(0); i++)
-            //{
-            //    for (int k = 0; k < m.GetLength(1); k++)
-            //    {
-            //        m[i, k] = rnd.Next(0, 5);
-            //    }
-            //}
+            for (int i = 0; i < m.GetLength(0); i++)
+            {
+                for (int k = 0; k < m.GetLength(1); k++)
+                {
+                    m[i, k] = rnd.Next(0, 5);
+                }
+            }
 
-            //Task1_1(5, m);
+            Task1_1(5, m);
 
 
             //Задание 2
