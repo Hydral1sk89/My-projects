@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Homework_5_Task_1._2
 {
@@ -155,6 +156,12 @@ namespace Homework_5_Task_1._2
 
             //Заполняем матрицы случайными числами
             FillMatrixRndNumber(matrixA, 0, 10);
+
+            //Если задержка между выполнениями методов будет менее 
+            //15 милисекунд то случайные значения будут одинаковые
+            //https://docs.microsoft.com/ru-ru/dotnet/api/system.random?view=netcore-3.1#Same
+            Thread.Sleep(200);
+
             FillMatrixRndNumber(matrixB, 0, 10);
 
             //Складываем матрицы
