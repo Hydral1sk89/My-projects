@@ -12,3 +12,10 @@ d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5 Task1.1\Home
 d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5 Task1.1\Homework 5 Task1\obj\Debug\Homework 5 Task1.1.csproj.CoreCompileInputs.cache
 d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5 Task1.1\Homework 5 Task1\obj\Debug\Homework 5 Task1.exe
 d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 5 Task1.1\Homework 5 Task1\obj\Debug\Homework 5 Task1.pdb
+C:\Users\admin\Desktop\projects\My-projects\Homework 5 Task1.1\Homework 5 Task1\bin\Debug\Homework 5 Task1.exe.config
+C:\Users\admin\Desktop\projects\My-projects\Homework 5 Task1.1\Homework 5 Task1\bin\Debug\Homework 5 Task1.exe
+C:\Users\admin\Desktop\projects\My-projects\Homework 5 Task1.1\Homework 5 Task1\bin\Debug\Homework 5 Task1.pdb
+C:\Users\admin\Desktop\projects\My-projects\Homework 5 Task1.1\Homework 5 Task1\obj\Debug\Homework 5 Task1.1.csprojAssemblyReference.cache
+C:\Users\admin\Desktop\projects\My-projects\Homework 5 Task1.1\Homework 5 Task1\obj\Debug\Homework 5 Task1.1.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\projects\My-projects\Homework 5 Task1.1\Homework 5 Task1\obj\Debug\Homework 5 Task1.exe
+C:\Users\admin\Desktop\projects\My-projects\Homework 5 Task1.1\Homework 5 Task1\obj\Debug\Homework 5 Task1.pdb

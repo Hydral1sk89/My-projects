@@ -6,17 +6,6 @@ using System.Threading.Tasks;
 
 namespace Homework_5_Task1
 {
-    // Задание 1.
-    // Воспользовавшись решением задания 3 четвертого модуля
-    // 1.1. Создать метод, принимающий число и матрицу, возвращающий матрицу умноженную на число
-    // 1.2. Создать метод, принимающий две матрицу, возвращающий их сумму
-    // 1.3. Создать метод, принимающий две матрицу, возвращающий их произведение
-
-    //Комментарий преподавателя
-    //Один метод должен отвечать за что-то одно.То, что методы возвращают матрицу - это верно. Но у Вас всё в одном методе.
-    //Один метод должен инициализировать матрицы, второй - заполнять.Третий - делать действие, четвертый - выводить матрицу на экран.
-    //откуда взялось столько выводов на экран? Зачем это? Это же копипаст, одинаковый код. ДОлжен быть единый метод вывода на экран всех матриц.
-
     class Program
     {
         /// <summary>
@@ -47,14 +36,14 @@ namespace Homework_5_Task1
 
             Console.WriteLine();
         }
-        
+
         /// <summary>
         /// Метод умножает матрицу на число и возвращает умноженную матрицу
         /// </summary>
         /// <param name="number">число</param>
         /// <param name="matrix">матрица</param>
         /// <returns></returns>
-        public static int[,] MultipleMatrixForNumber(int number, int[,] matrix)
+        public static int[,] MultiplyMatrixForNumber(int number, int[,] matrix)
         {
             //это количество строк в матрице
             int strInt = matrix.GetLength(0);
@@ -88,9 +77,9 @@ namespace Homework_5_Task1
         {
             Random rnd = new Random();
 
-            for (int i=0; i < matrix.GetLength(0); i++)
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                for(int j=0;j<matrix.GetLength(1); j++)
+                for (int j = 0; j < matrix.GetLength(1); j++)
                 {
                     matrix[i, j] = rnd.Next(from, to);
                 }
@@ -99,17 +88,64 @@ namespace Homework_5_Task1
             return matrix;
         }
 
+        /// <summary>
+        /// Этот метод принимает матрицу и число на которое будет умножена матрица и отбражает на консоль число, матрицу и матрицу - результат.
+        /// </summary>
+        /// <param name="matrix">матрица</param>
+        /// <param name="number">число на которое будет умножена матрица</param>
+        public static void DisplayAll(int[,] matrixA, int[,] matrixResult, int number)
+        {
+            //это количество строк в матрице
+            int strInt = matrixA.GetLength(0);
+
+            //это количество столбцов в матрице
+            int columnInt = matrixA.GetLength(1);
+
+            //Вывод на экран
+            for (int i = 0; i < strInt; i++)
+            {
+                if (i == strInt / 2 && number < 10) Console.Write($"  {number} х |  ");
+                if (i == strInt / 2 && number > 9) Console.Write($" {number} х |  ");
+                if (i != strInt / 2) Console.Write("      |  ");
+
+                for (int k = 0; k < columnInt; k++)
+                {
+                    Console.Write(matrixA[i, k]);
+                    Console.Write("  ");
+                }
+
+                if (i == strInt / 2) Console.Write("| = |  ");
+                else Console.Write("|   |  ");
+
+                for (int k = 0; k < columnInt; k++)
+                {
+                    Console.Write(String.Format("{0,3:0}", matrixResult[i, k]));
+                    Console.Write("  ");
+                }
+                Console.Write("|");
+
+                Console.WriteLine();
+            }
+        }
+            
         static void Main(string[] args)
         {
             //Создаем двумерный массив в который будет записана наша матрица
             int[,] MatrixArray = new int[5, 5];
 
-            //Помещаем нашу матрицу в метод что бы вернуть заполненную матрицу
-            //и эту заполненную матрицу помещаем в метод что бы вывести её на экран
-            DisplayMatrix(FillMatrixRndNumber(MatrixArray, 0, 10));
+            //Создаем двумерный массив в который будет записана матрица - результат
+            int[,] MatrixArrayResult = new int[5, 5];
 
-            //Умножаем нашу матрицу на число и выводим её на экран
-            DisplayMatrix(MultipleMatrixForNumber(5, MatrixArray));
+            //Заполняем массив - матрицу случайными числами
+            FillMatrixRndNumber(MatrixArray, 0, 10);
+
+            //Помещаем матрицу в метод и записываем результат в массив - матрицу результат
+            MatrixArrayResult = MultiplyMatrixForNumber(5, MatrixArray);
+
+            //Выводим все матрицу и число на консоль
+            DisplayAll(MatrixArray, MatrixArrayResult, 5);
+
+            Console.ReadLine();
         }
     }
 }
