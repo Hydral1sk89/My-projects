@@ -102,14 +102,33 @@ namespace Homework_6_Task_1
                 if (tempCount == 0) return result;
                 //i = numbers.Length - 1;
             }
-          
+
             //for(int i = 0; i < numbers.Length - 1; i++)
             //{
             //    Console.Write(numbers[i] + " ");
             //}
 
+            
+            //Убрать лишнее с массива
+            int[] our_result = RemoveExcess(result);
+
             //вернуть результат
-            return result;
+            return our_result;
+        }
+
+
+        static public int[] RemoveExcess (int[] Arr)
+        {
+            if (Arr[0] == -1) Array.Reverse(Arr);
+
+            while (Arr[Arr.Length - 1] == -1)
+            {
+                Array.Resize(ref Arr, Arr.Length - 1);
+            }
+
+            if (Arr[0] > Arr[1]) Array.Reverse(Arr);
+
+            return Arr;
         }
 
         static public void Display(params int[] numbers)
