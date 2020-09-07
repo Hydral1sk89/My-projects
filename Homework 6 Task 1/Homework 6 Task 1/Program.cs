@@ -9,7 +9,6 @@ namespace Homework_6_Task_1
 {
     class Program
     {
-
         //свойства делимости 
         // 1. А == А/1; 
 
@@ -39,22 +38,34 @@ namespace Homework_6_Task_1
             //string[] result = new string[50];
 
             //int i = numbers.Length - 1;
-            int tempCount;
+            int tempCount=-1;
 
             for (int i = numbers.Length - 1; i > 0; i--)
             {
-                for (int j = numbers.Length - 1; j > 0; j--)
+
+                //переменная служит для выхода из цикла
+                if (tempCount == -1) tempCount = i;
+                if (tempCount == 0) break;
+
+                for (int j = numbers.Length - 1; j >= 0; j--)
                 {
+                    if (i > result.Length || i > numbers.Length) i = numbers.Length-1;
+
                     if (count == 0)
                     {
                         result[count] = numbers[j];
-                        tempCount = numbers[j];
                         count++;
                     }
                     //Проверяем не закончился ли наш массив
                     if ((i - (i - 1)) >= 0)
                     {
-
+                        if (result.Length >= i)
+                        {
+                            if (result[i] == numbers[i] && numbers[i] % numbers[j] == 0 && j != i)
+                            {
+                                result[j] = -1; numbers[j] = -1;
+                            }
+                        }
                         if (numbers[i] % numbers[j] == 0) continue;
                         if (numbers[i] <= numbers[j]) continue;
                         if (numbers[j] == -1) continue;
@@ -62,11 +73,14 @@ namespace Homework_6_Task_1
                         // Пробуем делить число на число из списка
                         if (numbers[i] % numbers[j] != 0)
                         {
-                            if (!(Array.Exists<int>(result,element => element == numbers[j])))
-                            Array.Resize(ref result, result.Length + 1);
-                            result[count] = numbers[j];
-                            numbers[j] = -1;
-                            count++;
+                            //Проверяем есть ли это число в массиве - результате
+                            if (!(Array.Exists<int>(result, element => element == numbers[j])))
+                            {
+                                Array.Resize(ref result, result.Length + 1);
+                                result[count] = numbers[j];
+                                numbers[j] = -1;
+                                count++;
+                            }
                         }
                     }
                 }
@@ -75,28 +89,37 @@ namespace Homework_6_Task_1
                 if (result[result.Length - 1] == 0) Array.Resize(ref result, result.Length - 1);
                 //group++;
 
+                //Делаем массив numbers того же размера что и массив - результат
                 Array.Resize(ref numbers, result.Length);
+
+                //Копируем цифры в массив numbers из массива - результата
                 numbers = result;
 
-                Array.Reverse(numbers);
-
-                i = numbers.Length - 1;
+                //Сортируем массив
+                if(numbers[0] > numbers[1])Array.Reverse(numbers);
+ 
+                tempCount--;
+                if (tempCount == 0) return result;
+                //i = numbers.Length - 1;
             }
-            for (int j = result.Length-1; j >= 0; j--)
-            {
-                Console.Write(result[j] + " ");
-            }
+          
             //for(int i = 0; i < numbers.Length - 1; i++)
             //{
             //    Console.Write(numbers[i] + " ");
             //}
 
-
-
             //вернуть результат
             return result;
         }
 
+        static public void Display(params int[] numbers)
+        {
+            for (int j = 0; j <= numbers.Length-1; j++)
+            {
+                Console.Write(numbers[j] + " ");
+            }
+            Console.WriteLine();
+        }
 
         static public int[] PushNumb(int[] numbers)
         {
@@ -117,7 +140,7 @@ namespace Homework_6_Task_1
 
             PushNumb(numb);
 
-            hakaton(numb);
+            Display(hakaton(numb));
         }
     }
 }

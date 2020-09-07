@@ -5,3 +5,10 @@ d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 6 Task 1\Homewo
 d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 6 Task 1\Homework 6 Task 1\obj\Debug\Homework 6 Task 1.csproj.CoreCompileInputs.cache
 d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 6 Task 1\Homework 6 Task 1\obj\Debug\Homework 6 Task 1.exe
 d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 6 Task 1\Homework 6 Task 1\obj\Debug\Homework 6 Task 1.pdb
+C:\Users\admin\Desktop\projects\My-projects\Homework 6 Task 1\Homework 6 Task 1\bin\Debug\Homework 6 Task 1.exe.config
+C:\Users\admin\Desktop\projects\My-projects\Homework 6 Task 1\Homework 6 Task 1\bin\Debug\Homework 6 Task 1.exe
+C:\Users\admin\Desktop\projects\My-projects\Homework 6 Task 1\Homework 6 Task 1\bin\Debug\Homework 6 Task 1.pdb
+C:\Users\admin\Desktop\projects\My-projects\Homework 6 Task 1\Homework 6 Task 1\obj\Debug\Homework 6 Task 1.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\projects\My-projects\Homework 6 Task 1\Homework 6 Task 1\obj\Debug\Homework 6 Task 1.exe
+C:\Users\admin\Desktop\projects\My-projects\Homework 6 Task 1\Homework 6 Task 1\obj\Debug\Homework 6 Task 1.pdb
+C:\Users\admin\Desktop\projects\My-projects\Homework 6 Task 1\Homework 6 Task 1\obj\Debug\Homework 6 Task 1.csprojAssemblyReference.cache
