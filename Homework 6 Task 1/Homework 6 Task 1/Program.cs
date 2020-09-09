@@ -21,28 +21,30 @@ namespace Homework_6_Task_1
         // m1*a1 == q; a==b*q;
 
         // 4. Свойство антисимметричности.
-        // 
+
+        //Основной массив
+        public static int[] numb = new int[10];
+
+        // Массив в который будем сохранять числа которые делят наше число без остатка
+        public static int[] SecondaryArray = new int[1];
+        // Индекс нового числа
+        public static int newNumber = 0;
+
+        public static int[] GroupTwoArray = new int[10];
 
         static public int[] hakaton(params int[] numbers)
         {
-            ////Кол-во групп по умолчанию
-            //int group = 0;
-
             //Массив - одна группа для результата
             int[] result =new int[1];
+            int countIndex = 0;
 
             //индекс массива - результата
             int count = 0;
 
-            ////массив строк в котором будут сохраняться группы с числами
-            //string[] result = new string[50];
-
-            //int i = numbers.Length - 1;
             int tempCount=-1;
 
             for (int i = numbers.Length - 1; i > 0; i--)
             {
-
                 //переменная служит для выхода из цикла
                 if (tempCount == -1) tempCount = i;
                 if (tempCount == 0) break;
@@ -63,7 +65,14 @@ namespace Homework_6_Task_1
                         {
                             if (result[i] == numbers[i] && numbers[i] % numbers[j] == 0 && j != i)
                             {
-                                result[j] = -1; numbers[j] = -1;
+                                if (numbers[j] != -1)
+                                {
+                                    GroupTwoArray[countIndex] = numbers[j];
+                                    countIndex++;
+                                }
+                                result[j] = -1;
+                                numbers[j] = -1;
+                                
                             }
                         }
                         if (numbers[i] % numbers[j] == 0) continue;
@@ -78,6 +87,13 @@ namespace Homework_6_Task_1
                             {
                                 Array.Resize(ref result, result.Length + 1);
                                 result[count] = numbers[j];
+
+                                if (numbers[j] != -1)
+                                {
+                                    GroupTwoArray[countIndex] = numbers[j];
+                                    countIndex++;
+                                }
+
                                 numbers[j] = -1;
                                 count++;
                             }
@@ -100,15 +116,8 @@ namespace Homework_6_Task_1
  
                 tempCount--;
                 if (tempCount == 0) return result;
-                //i = numbers.Length - 1;
             }
-
-            //for(int i = 0; i < numbers.Length - 1; i++)
-            //{
-            //    Console.Write(numbers[i] + " ");
-            //}
-
-            
+           
             //Убрать лишнее с массива
             int[] our_result = RemoveExcess(result);
 
@@ -116,7 +125,47 @@ namespace Homework_6_Task_1
             return our_result;
         }
 
+        /// <summary>
+        /// Метод удаляет из основного массива значение под определенным индексом и делает массив короче. 
+        /// Значение под этим индексом попадает во второй массив, второй массив сортируется. 
+        /// </summary>
+        /// <param name="MainArray">массив из которого будет "вырезано" значение</param>
+        /// <param name="index">индекс значения которое будет "вырезано"</param>
+        /// <returns></returns>
+        static public void CopyAndDeleteArr (int[] MainArray,int index)
+        {
+            //Записываем во второй массив число
+            SecondaryArray[newNumber] = MainArray[index];
+            //Увеличивает вместимость массива на 1 
+            Array.Resize(ref SecondaryArray, SecondaryArray.Length + 1);
+            //Сортируем массив
+            Array.Sort(SecondaryArray);
 
+
+            //Удаляем наше число из основного массива
+            MainArray[index] = 0;
+
+            //Проверяем что бы число 0 оказалось в конце массива
+            if (MainArray[0] < MainArray[1])
+            {
+                Array.Sort(MainArray);
+                Array.Reverse(MainArray);
+                //Удаляем последнее число ( число 0 ) из основного массива
+                Array.Resize(ref MainArray, MainArray.Length - 1);
+                if (MainArray[0] > MainArray[1]) Array.Reverse(MainArray);
+                Array.Sort(MainArray);
+            }
+
+            //Сортируем массив
+            Array.Sort(MainArray);
+        }
+
+
+        /// <summary>
+        /// Удаляет из массива те индексами под которыми хранится значение -1
+        /// </summary>
+        /// <param name="Arr">массив</param>
+        /// <returns></returns>
         static public int[] RemoveExcess (int[] Arr)
         {
             if (Arr[0] == -1) Array.Reverse(Arr);
@@ -131,7 +180,11 @@ namespace Homework_6_Task_1
             return Arr;
         }
 
-        static public void Display(params int[] numbers)
+        /// <summary>
+        /// выводит массив на экран консоли
+        /// </summary>
+        /// <param name="numbers"></param>
+        static public void Display(int[] numbers)
         {
             for (int j = 0; j <= numbers.Length-1; j++)
             {
@@ -140,6 +193,11 @@ namespace Homework_6_Task_1
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// вставляет в массив значения от 1 и далее
+        /// </summary>
+        /// <param name="numbers">массив</param>
+        /// <returns></returns>
         static public int[] PushNumb(int[] numbers)
         {
             int count = 1;
@@ -154,12 +212,19 @@ namespace Homework_6_Task_1
 
 
         static void Main(string[] args)
-        {
-            int[] numb = new int[10];
+        { 
 
             PushNumb(numb);
 
-            Display(hakaton(numb));
+            Display(numb);
+            Display(SecondaryArray);
+
+            CopyAndDeleteArr(numb, 4);
+            Display(numb);
+            Display(SecondaryArray);
+
+            //Display(hakaton(numb));
+            //Display(GroupTwoArray);
         }
     }
 }
