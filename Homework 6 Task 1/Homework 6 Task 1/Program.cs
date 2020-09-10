@@ -25,11 +25,26 @@ namespace Homework_6_Task_1
         //Основной массив
         public static int[] numb = new int[10];
 
+        //Массив массивов где будет хранится вся наша информация
+        public static int[][] jaggedArray = new int[1][];
+        
+
+        //Переменная в которой хранится количество массивов
+        public static int quantity = 1;
+
+        /// <summary>
+        /// Метод добавляет ещё один массив в массив массивов JaggedArray
+        /// </summary>
+        static public void AddArray()
+        {
+            Array.Resize(ref jaggedArray, jaggedArray.Length + 1);
+        }
+
         // Массив в который будем сохранять числа которые делят наше число без остатка
         public static int[] SecondaryArray = new int[0];
         // Индекс нового числа
         public static int newNumber = 0;
-
+        
         public static int[] GroupTwoArray = new int[10];
 
         static public int[] hakaton(params int[] numbers)
@@ -135,32 +150,31 @@ namespace Homework_6_Task_1
         static public void CopyAndDeleteArr (ref int[] MainArray,int index)
         {
             //Увеличивает вместимость массива на 1 
-            Array.Resize(ref SecondaryArray, SecondaryArray.Length + 1);
+            Array.Resize(ref jaggedArray[1], jaggedArray[1].Length + 1);
             //Записываем во второй массив число
-            SecondaryArray[newNumber] = MainArray[index];
+            jaggedArray[1][newNumber] = MainArray[index];
 
             //Сортируем массив
-            Array.Sort(SecondaryArray);
+            Array.Sort(jaggedArray[1]);
 
 
             //Удаляем наше число из основного массива
-            MainArray[index] = 0;
+            jaggedArray[0][index] = 0;
 
             //Проверяем что бы число 0 оказалось в конце массива
-            if (MainArray[0] < MainArray[1])
+            if (jaggedArray[0][0] < jaggedArray[0][1])
             {
-                Array.Sort(MainArray);
-                Array.Reverse(MainArray);
+                Array.Sort(jaggedArray[0]);
+                Array.Reverse(jaggedArray[0]);
                 //Удаляем последнее число ( число 0 ) из основного массива
-                Array.Resize(ref MainArray, MainArray.Length - 1);
-                if (MainArray[0] > MainArray[1]) Array.Reverse(MainArray);
-                Array.Sort(MainArray);
+                Array.Resize(ref jaggedArray[0], jaggedArray[0].Length - 1);
+                if (jaggedArray[0][0] > jaggedArray[0][1]) Array.Reverse(jaggedArray[0]);
+                Array.Sort(jaggedArray[0]);
             }
 
             //Сортируем массив
             Array.Sort(MainArray);
         }
-
 
         /// <summary>
         /// Удаляет из массива те индексами под которыми хранится значение -1
@@ -213,16 +227,20 @@ namespace Homework_6_Task_1
 
 
         static void Main(string[] args)
-        { 
+        {
+            jaggedArray[0] = new int[10];
+            AddArray();
+            jaggedArray[1] = new int[0];
+            PushNumb(jaggedArray[0]);
 
-            PushNumb(numb);
+            Display(jaggedArray[0]);
 
-            Display(numb);
-            Display(SecondaryArray);
+            CopyAndDeleteArr(ref jaggedArray[0], 4);
+            Display(jaggedArray[0]);
+            Display(jaggedArray[1]);
 
-            CopyAndDeleteArr(ref numb, 4);
-            Display(numb);
-            Display(SecondaryArray);
+            //hakaton(numb);
+            //Display(numb);
 
             //Display(hakaton(numb));
             //Display(GroupTwoArray);
