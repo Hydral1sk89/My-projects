@@ -26,7 +26,7 @@ namespace Homework_6_Task_1
         public static int[] numb = new int[10];
 
         // Массив в который будем сохранять числа которые делят наше число без остатка
-        public static int[] SecondaryArray = new int[1];
+        public static int[] SecondaryArray = new int[0];
         // Индекс нового числа
         public static int newNumber = 0;
 
@@ -132,12 +132,13 @@ namespace Homework_6_Task_1
         /// <param name="MainArray">массив из которого будет "вырезано" значение</param>
         /// <param name="index">индекс значения которое будет "вырезано"</param>
         /// <returns></returns>
-        static public void CopyAndDeleteArr (int[] MainArray,int index)
+        static public void CopyAndDeleteArr (ref int[] MainArray,int index)
         {
-            //Записываем во второй массив число
-            SecondaryArray[newNumber] = MainArray[index];
             //Увеличивает вместимость массива на 1 
             Array.Resize(ref SecondaryArray, SecondaryArray.Length + 1);
+            //Записываем во второй массив число
+            SecondaryArray[newNumber] = MainArray[index];
+
             //Сортируем массив
             Array.Sort(SecondaryArray);
 
@@ -219,7 +220,7 @@ namespace Homework_6_Task_1
             Display(numb);
             Display(SecondaryArray);
 
-            CopyAndDeleteArr(numb, 4);
+            CopyAndDeleteArr(ref numb, 4);
             Display(numb);
             Display(SecondaryArray);
 
