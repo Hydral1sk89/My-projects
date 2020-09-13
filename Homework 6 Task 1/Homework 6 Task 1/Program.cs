@@ -9,135 +9,69 @@ namespace Homework_6_Task_1
 {
     class Program
     {
-        //свойства делимости 
-        // 1. А == А/1; 
-
-        // 2. Если целое число a отлично от нуля и делится на целое число b, 
-        //то модуль числа a не меньше модуля числа b. То есть, если a≠0 и a%b==0, то модуль а >= модулю b
-        //Это свойство делимости непосредственно вытекает из предыдущего.
-
-        // 3. Свойство транзитивности.
-        // a == m * a1, m==b*m1, a==m*a1==(b*m1)*a1 == b*(m1*a1).
-        // m1*a1 == q; a==b*q;
-
-        // 4. Свойство антисимметричности.
-
-        //Основной массив
-        public static int[] numb = new int[10];
-
         //Массив массивов где будет хранится вся наша информация
         public static int[][] jaggedArray = new int[1][];
         
-
         //Переменная в которой хранится количество массивов
-        public static int quantity = 1;
+        public static int quantity = 0;
+
+        //переменные в которых хранится порядковые числа-названия массивов
+        public static int j1 = 0;
+        public static int j2 = 1;
 
         /// <summary>
         /// Метод добавляет ещё один массив в массив массивов JaggedArray
         /// </summary>
         static public void AddArray()
         {
+            quantity++;
             Array.Resize(ref jaggedArray, jaggedArray.Length + 1);
+            if (jaggedArray[quantity] == null)
+            Array.Resize(ref jaggedArray[quantity], 0);
         }
 
-        // Массив в который будем сохранять числа которые делят наше число без остатка
-        public static int[] SecondaryArray = new int[0];
         // Индекс нового числа
         public static int newNumber = 0;
-        
-        public static int[] GroupTwoArray = new int[10];
 
-        static public int[] hakaton(params int[] numbers)
+        /// <summary>
+        /// Метод делит массив массивов на массивы, где в каждом массиве помещаются числа которые не делятся друг на друга без остатка.
+        /// </summary>
+        /// <param name="numbers">массив</param>
+        static public void hakaton(int[][] numbers)
         {
-            //Массив - одна группа для результата
-            int[] result =new int[1];
-            int countIndex = 0;
-
-            //индекс массива - результата
-            int count = 0;
-
-            int tempCount=-1;
-
-            for (int i = numbers.Length - 1; i > 0; i--)
+            //где k - индекс массива массивов
+            int k = 0;
+            
+            //for (int k = 0; k < numbers.Length; k++)
+            do
             {
-                //переменная служит для выхода из цикла
-                if (tempCount == -1) tempCount = i;
-                if (tempCount == 0) break;
+                //Создаем новый массив что бы туда сохранить результат
+                AddArray();
 
-                for (int j = numbers.Length - 1; j >= 0; j--)
+                //где i и j - индекс массива
+                for (int i = numbers[k].Length - 1; i >= 0; i--)
                 {
-                    if (i > result.Length || i > numbers.Length) i = numbers.Length-1;
-
-                    if (count == 0)
+                    for (int j = numbers[k].Length - 1; j >= 0; j--)
                     {
-                        result[count] = numbers[j];
-                        count++;
-                    }
-                    //Проверяем не закончился ли наш массив
-                    if ((i - (i - 1)) >= 0)
-                    {
-                        if (result.Length >= i)
+                        //Если число одинаковые то переходим на следующую итерацию
+                        if (numbers[k][i] == numbers[k][j]) continue;
+
+                        //Если число делится без остатка то копируем число в другой массив
+                        if (numbers[k][i] % numbers[k][j] == 0)
                         {
-                            if (result[i] == numbers[i] && numbers[i] % numbers[j] == 0 && j != i)
-                            {
-                                if (numbers[j] != -1)
-                                {
-                                    GroupTwoArray[countIndex] = numbers[j];
-                                    countIndex++;
-                                }
-                                result[j] = -1;
-                                numbers[j] = -1;
-                                
-                            }
-                        }
-                        if (numbers[i] % numbers[j] == 0) continue;
-                        if (numbers[i] <= numbers[j]) continue;
-                        if (numbers[j] == -1) continue;
-
-                        // Пробуем делить число на число из списка
-                        if (numbers[i] % numbers[j] != 0)
-                        {
-                            //Проверяем есть ли это число в массиве - результате
-                            if (!(Array.Exists<int>(result, element => element == numbers[j])))
-                            {
-                                Array.Resize(ref result, result.Length + 1);
-                                result[count] = numbers[j];
-
-                                if (numbers[j] != -1)
-                                {
-                                    GroupTwoArray[countIndex] = numbers[j];
-                                    countIndex++;
-                                }
-
-                                numbers[j] = -1;
-                                count++;
-                            }
+                            CopyAndDeleteArr(ref jaggedArray[j1], ref jaggedArray[j2], j);
+                            numbers[k] = jaggedArray[j1];
+                            if (i > numbers[k].Length - 1) i = numbers[k].Length - 1;
                         }
                     }
                 }
-
-                //Проверка не добавили ли лишнее число в массив и удаляем лишнее если оно есть 
-                if (result[result.Length - 1] == 0) Array.Resize(ref result, result.Length - 1);
-                //group++;
-
-                //Делаем массив numbers того же размера что и массив - результат
-                Array.Resize(ref numbers, result.Length);
-
-                //Копируем цифры в массив numbers из массива - результата
-                numbers = result;
-
-                //Сортируем массив
-                if(numbers[0] > numbers[1])Array.Reverse(numbers);
- 
-                tempCount--;
-                if (tempCount == 0) return result;
+                j1++;
+                j2++;
+                newNumber = 0;
+                k++;
+                numbers = jaggedArray;
             }
-           
-            //Убрать лишнее с массива
-            int[] our_result = RemoveExcess(result);
-
-            //вернуть результат
-            return our_result;
+            while (numbers[numbers.Length-1][numbers[k].Length-1] != 1);
         }
 
         /// <summary>
@@ -145,31 +79,33 @@ namespace Homework_6_Task_1
         /// Значение под этим индексом попадает во второй массив, второй массив сортируется. 
         /// </summary>
         /// <param name="MainArray">массив из которого будет "вырезано" значение</param>
+        /// /// <param name="SecondaryArray">массив куда будет "вставлено" значение</param>
         /// <param name="index">индекс значения которое будет "вырезано"</param>
         /// <returns></returns>
-        static public void CopyAndDeleteArr (ref int[] MainArray,int index)
+        static public void CopyAndDeleteArr (ref int[] MainArray, ref int[] SecondaryArray, int index)
         {
             //Увеличивает вместимость массива на 1 
-            Array.Resize(ref jaggedArray[1], jaggedArray[1].Length + 1);
+            Array.Resize(ref SecondaryArray, SecondaryArray.Length+1);
             //Записываем во второй массив число
-            jaggedArray[1][newNumber] = MainArray[index];
-
+            SecondaryArray[newNumber] = MainArray[index];
+            newNumber++;
             //Сортируем массив
-            Array.Sort(jaggedArray[1]);
+            Array.Sort(SecondaryArray);
 
 
             //Удаляем наше число из основного массива
-            jaggedArray[0][index] = 0;
+            MainArray[index] = 0;
 
+            Array.Sort(MainArray);
             //Проверяем что бы число 0 оказалось в конце массива
-            if (jaggedArray[0][0] < jaggedArray[0][1])
+            if (MainArray[0] < MainArray[1])
             {
-                Array.Sort(jaggedArray[0]);
-                Array.Reverse(jaggedArray[0]);
+                Array.Sort(MainArray);
+                Array.Reverse(MainArray);
                 //Удаляем последнее число ( число 0 ) из основного массива
-                Array.Resize(ref jaggedArray[0], jaggedArray[0].Length - 1);
-                if (jaggedArray[0][0] > jaggedArray[0][1]) Array.Reverse(jaggedArray[0]);
-                Array.Sort(jaggedArray[0]);
+                Array.Resize(ref MainArray, MainArray.Length - 1);
+                if(MainArray.Length > 1)
+                if (MainArray[0] > MainArray[1]) Array.Reverse(MainArray);
             }
 
             //Сортируем массив
@@ -177,35 +113,22 @@ namespace Homework_6_Task_1
         }
 
         /// <summary>
-        /// Удаляет из массива те индексами под которыми хранится значение -1
+        /// выводит результат на экран консоли
         /// </summary>
-        /// <param name="Arr">массив</param>
-        /// <returns></returns>
-        static public int[] RemoveExcess (int[] Arr)
+        /// <param name="numbers">массив</param>
+        static public void Display(int[][] numbers)
         {
-            if (Arr[0] == -1) Array.Reverse(Arr);
-
-            while (Arr[Arr.Length - 1] == -1)
+            for (int i = 0; i < numbers.Length; i++)
             {
-                Array.Resize(ref Arr, Arr.Length - 1);
-            }
-
-            if (Arr[0] > Arr[1]) Array.Reverse(Arr);
-
-            return Arr;
-        }
-
-        /// <summary>
-        /// выводит массив на экран консоли
-        /// </summary>
-        /// <param name="numbers"></param>
-        static public void Display(int[] numbers)
-        {
-            for (int j = 0; j <= numbers.Length-1; j++)
-            {
-                Console.Write(numbers[j] + " ");
+                Console.Write($"Группа{i + 1}: ");
+                for (int j = 0; j <= numbers[i].Length - 1; j++)
+                {
+                    Console.Write(numbers[i][j] + " ");
+                }
+                Console.WriteLine();
             }
             Console.WriteLine();
+            Console.WriteLine($"M = {numbers.Length}");
         }
 
         /// <summary>
@@ -228,22 +151,17 @@ namespace Homework_6_Task_1
 
         static void Main(string[] args)
         {
-            jaggedArray[0] = new int[10];
-            AddArray();
-            jaggedArray[1] = new int[0];
+            //Создаем массив на N элементов
+            jaggedArray[0] = new int[50];
+
+            //Поместим числа в основной массив
             PushNumb(jaggedArray[0]);
 
-            Display(jaggedArray[0]);
+            //Пропускаем через метод наш массив
+            hakaton(jaggedArray);
 
-            CopyAndDeleteArr(ref jaggedArray[0], 4);
-            Display(jaggedArray[0]);
-            Display(jaggedArray[1]);
-
-            //hakaton(numb);
-            //Display(numb);
-
-            //Display(hakaton(numb));
-            //Display(GroupTwoArray);
+            //Выводим на экран
+            Display(jaggedArray);
         }
     }
 }
