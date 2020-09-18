@@ -23,24 +23,35 @@ namespace Homework_6_Task_1._1
             int[] array = new int[To];
             int index = 0;
 
-            while (For != 0)
+            while (array.Length >= 1 && array[0] != 1)
             {
                 for (int i = For; i >= To; i--)
                 {
-                    array[index] = numbers[i];
-                    index++;
+                    if (index < array.Length)
+                    {
+                        array[index] = numbers[i];
+                        index++;
+                    }
                 }
 
                 //Сортируем массив
                 Array.Sort(array);
                 //Записываем массив в наш файл 
                 StreamWrite(array);
+                //проверка и выход из цикла
+                if(array.Length==1 && array[0] == 2)
+                {
+                    array[0] = 1;
+                    StreamWrite(array);
+                    break;
+                }
                 //Сбрасываем индекс 
                 index = 0;
                 //меняем переменную "от"
-                For = To - 1;
+                For = To-1;
                 //меняем переменную "до"
-                To = For / 2;
+                if (For % 2 == 0) To = For / 2;
+                else To = For / 2 + 1;
                 //Меняем массив на подходящий размер
                 array = new int[To+1];
             }
@@ -52,7 +63,7 @@ namespace Homework_6_Task_1._1
         /// </summary>
         static public void StreamRead()
         {
-            using (StreamReader sr = new StreamReader("Numbers.txt", Encoding.Unicode))
+            using (StreamReader sr = new StreamReader(@"D:\Numbers.txt", Encoding.Unicode))
             {
                 string line;
    
@@ -72,7 +83,7 @@ namespace Homework_6_Task_1._1
         {
             int i = 0;
 
-            using (StreamWriter sw = new StreamWriter("Numbers.txt", true, Encoding.Unicode))
+            using (StreamWriter sw = new StreamWriter(@"D:\Numbers.txt", true, Encoding.Unicode))
             {
                 while (i < numbers.Length)
                 {
@@ -107,7 +118,7 @@ namespace Homework_6_Task_1._1
         /// </summary>
         static public void DisplayAll()
         {
-            string text = File.ReadAllText(@"Numbers.txt");
+            string text = File.ReadAllText(@"D:\Numbers.txt");
             Console.WriteLine(text);
         }
 
@@ -116,8 +127,8 @@ namespace Homework_6_Task_1._1
         /// </summary>
         static public void ExistsFile()
         {
-            File.Exists(@"Numbers.txt");
-            if (File.Exists(@"Numbers.txt")) Console.WriteLine("Такой файл существует");
+            File.Exists(@"D:\Numbers.txt");
+            if (File.Exists(@"D:\Numbers.txt")) Console.WriteLine("Такой файл существует");
             else
                 Console.WriteLine("Нет такого файла");
         }
@@ -127,12 +138,12 @@ namespace Homework_6_Task_1._1
         /// </summary>
         static public void DeleteFile()
         {
-            File.Delete(@"Numbers.txt");
+            File.Delete(@"D:\Numbers.txt");
         }
 
         static void Main(string[] args)
         {
-            int[] n = new int[10];
+            int[] n = new int[50];
 
             PushNumb(n);
             Hakaton(n);
