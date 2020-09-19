@@ -39,6 +39,7 @@ namespace Homework_6_Task_1._1
                 //Записываем массив в наш файл 
                 StreamWrite(array);
                 //проверка и выход из цикла
+                if (array.Length == 1 && array[0] == 1) break;
                 if(array.Length==1 && array[0] == 2)
                 {
                     array[0] = 1;
@@ -47,13 +48,19 @@ namespace Homework_6_Task_1._1
                 }
                 //Сбрасываем индекс 
                 index = 0;
-                //меняем переменную "от"
+                //меняем переменную "от" 
                 For = To-1;
-                //меняем переменную "до"
-                if (For % 2 == 0) To = For / 2;
-                else To = For / 2 + 1;
-                //Меняем массив на подходящий размер
-                array = new int[To+1];
+                //меняем переменную "до" и устанавливаем необходимый размер массива
+                if (For % 2 == 0)
+                {
+                    To = For / 2;
+                    array = new int[To + 1];
+                }
+                else
+                {
+                    To = For / 2 + 1;
+                    array = new int[To];
+                } 
             }
         }
 
@@ -143,14 +150,14 @@ namespace Homework_6_Task_1._1
 
         static void Main(string[] args)
         {
-            int[] n = new int[50];
+            int[] n = new int[100_000_000];
 
             PushNumb(n);
             Hakaton(n);
             //StreamWrite(n);
             StreamRead();
             DeleteFile();
-            
+
         }
     }
 }

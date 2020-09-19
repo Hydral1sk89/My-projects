@@ -205,7 +205,7 @@ namespace Homework_6_Task_1
         static void Main(string[] args)
         {
             //Создаем массив на N элементов
-            jaggedArray[0] = new int[50];
+            jaggedArray[0] = new int[10];
 
             //Поместим числа в основной массив
             PushNumb(jaggedArray[0]);
