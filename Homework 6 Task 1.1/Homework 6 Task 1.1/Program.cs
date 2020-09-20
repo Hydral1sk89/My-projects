@@ -127,6 +127,37 @@ namespace Homework_6_Task_1._1
         }
 
         /// <summary>
+        /// Метод загружает из файла числа и возвращает эти числа в массиве
+        /// </summary>
+        /// <returns></returns>
+        static public int[] StreamReadAndPushInArray()
+        {
+            int[] lastNumber = new int[11];
+
+            char[] CharlastNumber;
+
+            using (StreamReader sr = new StreamReader(path, Encoding.Unicode))
+            {
+                string line;
+                string[] Aline;
+
+                while((line = sr.ReadLine()) != null)
+                {
+                    //Aline = line.Split(' ');
+                    int[] array = line.Split(' ').Select(int.Parse).ToArray();
+                    lastNumber = array;
+                    //Aline = line.Split().Select(int.Parse).ToArray();
+                    //lastNumber = Aline.Select(int.Parse).ToArray();
+                    //lastNumber = Array.ConvertAll(Aline, int.Parse);
+                    //lastNumber = Array.ConvertAll(Aline, element => (Convert.ToInt32(element)));
+                    //lastNumber = Array.ConvertAll(Aline, int.Parse);
+                    //DisplayArray(lastNumber);
+                }
+            }
+            return lastNumber;
+        }
+
+        /// <summary>
         /// метод принимает массив чисел и записывает этот массив в виде строки в файл 
         /// </summary>
         /// <param name="numbers">массив чисел</param>
@@ -194,16 +225,24 @@ namespace Homework_6_Task_1._1
             File.Delete(path);
         }
 
+        static public void DisplayArray(int[] array)
+        {
+            for(int i = 0; i < array.Length; i++)
+            {
+                Console.Write(array[i] + " ");
+            }
+        }
+
         static void Main(string[] args)
         {
-            InputPath();
-            int[] n = new int[50];
-
-            PushNumb(n);
-            Hakaton(n);
-            StreamRead();
-            Console.WriteLine($"M = {GetM()}");
-            DeleteFile();
+            //InputPath();
+            //int[] n = new int[10];
+            //StreamWrite(n,1);
+            DisplayArray(StreamReadAndPushInArray());
+            //DisplayArray(StreamReadAndPushInArray());
+            //PushNumb(StreamReadAndPushInArray());
+            //Hakaton(StreamReadAndPushInArray());
+            //StreamRead();
         }
     }
 }
