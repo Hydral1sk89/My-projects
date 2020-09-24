@@ -132,14 +132,11 @@ namespace Homework_6_Task_1._1
         /// <returns></returns>
         static public int[] StreamReadAndPushInArray()
         {
-            int[] lastNumber = new int[11];
-
-            char[] CharlastNumber;
+            int[] lastNumber = new int[10];
 
             using (StreamReader sr = new StreamReader(path, Encoding.Unicode))
             {
                 string line;
-                string[] Aline;
 
                 while((line = sr.ReadLine()) != null)
                 {
