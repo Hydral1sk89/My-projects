@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.IO.Compression;
 
 namespace Homework_6_Task_1._1
 {
     class Program
     {
         //Путь к файлу по умолчанию
-        public static string path = @"D:\Numbers.txt"; 
+        public static string path = @"D:\Numbers.txt";
+        public static string destinationPath = @"D:\Numbers2.txt";
 
         /// <summary>
         /// Метод записывает путь к файлу
@@ -21,6 +23,9 @@ namespace Homework_6_Task_1._1
             Console.WriteLine("Пример: D:\\Numbers.txt");
             path = Console.ReadLine();
             path = $@"{path}";
+            Console.WriteLine("Куда сохранить результат?");
+            destinationPath = Console.ReadLine();
+            destinationPath = $@"{destinationPath}";
             Console.Clear();
         }
 
@@ -63,7 +68,7 @@ namespace Homework_6_Task_1._1
                 StreamWrite(array, CountGroup);
                 //проверка и выход из цикла
                 if (array.Length == 1 && array[0] == 1) break;
-                if(array.Length==1 && array[0] == 2)
+                if (array.Length == 1 && array[0] == 2)
                 {
                     CountGroup++;
                     array[0] = 1;
@@ -73,7 +78,7 @@ namespace Homework_6_Task_1._1
                 //Сбрасываем индекс 
                 index = 0;
                 //меняем переменную "от" 
-                For = To-1;
+                For = To - 1;
                 //меняем переменную "до" и устанавливаем необходимый размер массива
                 if (For % 2 == 0)
                 {
@@ -84,7 +89,7 @@ namespace Homework_6_Task_1._1
                 {
                     To = For / 2 + 1;
                     array = new int[To];
-                } 
+                }
             }
         }
 
@@ -95,12 +100,12 @@ namespace Homework_6_Task_1._1
         {
             int count = 0;
 
-            using (StreamReader sr = new StreamReader(path, Encoding.Unicode))
+            using (StreamReader sr = new StreamReader(destinationPath, Encoding.Unicode))
             {
                 string line;
-                
 
-                while((line = sr.ReadLine()) != null)
+
+                while ((line = sr.ReadLine()) != null)
                 {
                     count++;
                 }
@@ -112,12 +117,12 @@ namespace Homework_6_Task_1._1
         /// <summary>
         /// Метод читает данные из файла и выводит их на экран консоли
         /// </summary>
-        static public void StreamRead()
+        static public void DisplayFile()
         {
             using (StreamReader sr = new StreamReader(path, Encoding.Unicode))
             {
                 string line;
-   
+
                 while ((line = sr.ReadLine()) != null)
                 {
                     Console.Write($"{line} \n");
@@ -138,7 +143,7 @@ namespace Homework_6_Task_1._1
             {
                 string line;
 
-                while((line = sr.ReadLine()) != null)
+                while ((line = sr.ReadLine()) != null)
                 {
                     //Aline = line.Split(' ');
                     int[] array = line.Split(' ').Select(int.Parse).ToArray();
@@ -155,22 +160,40 @@ namespace Homework_6_Task_1._1
         }
 
         /// <summary>
+        /// Метод читает файл и возвращает массив с цифрами из файла
+        /// </summary>
+        /// <returns></returns>
+        static public int[] ReadFile(string path)
+        {
+            int[] array;
+            string[] arrayS;
+            string file;
+
+            file = File.ReadAllText(path);
+            arrayS = file.Split(' ');
+
+            array = Array.ConvertAll(arrayS, int.Parse);
+
+            return array;
+        }
+
+        /// <summary>
         /// метод принимает массив чисел и записывает этот массив в виде строки в файл 
         /// </summary>
         /// <param name="numbers">массив чисел</param>
         /// <param name="CountGroup">Счетчик группы</param>
         static public void StreamWrite(int[] numbers, int CountGroup)
         {
-            int i = 0;           
+            int i = 0;
 
-            using (StreamWriter sw = new StreamWriter(path, true, Encoding.Unicode))
+            using (StreamWriter sw = new StreamWriter(destinationPath, true, Encoding.Unicode))
             {
                 sw.Write($"Группа{CountGroup}: ");
                 while (i < numbers.Length)
                 {
                     string note = string.Empty;
                     note += Convert.ToString(numbers[i]);
-                    sw.Write(note+" ");
+                    sw.Write(note + " ");
                     i++;
                 }
                 sw.WriteLine();
@@ -197,7 +220,7 @@ namespace Homework_6_Task_1._1
         /// <summary>
         /// Метод выводит на экран весь текст из файла
         /// </summary>
-        static public void DisplayAll()
+        static public void DisplayAll(string path)
         {
             string text = File.ReadAllText(path);
             Console.WriteLine(text);
@@ -206,7 +229,7 @@ namespace Homework_6_Task_1._1
         /// <summary>
         /// Метод определяет есть ли файл
         /// </summary>
-        static public void ExistsFile()
+        static public void ExistsFile(string path)
         {
             File.Exists(path);
             if (File.Exists(path)) Console.WriteLine("Такой файл существует");
@@ -217,29 +240,216 @@ namespace Homework_6_Task_1._1
         /// <summary>
         /// Метод удаляет файл
         /// </summary>
-        static public void DeleteFile()
+        static public void DeleteFile(string path)
         {
             File.Delete(path);
         }
 
+        /// <summary>
+        /// Метод перемещает файл
+        /// </summary>
+        /// <param name="path">путь к файлу</param>
+        /// <param name="newPath">новый путь к файлу</param>
+        static public void MoveFile(string path, string newPath)
+        {
+            File.Move($@"{path}", $@"{newPath}");
+        }
+
+        /// <summary>
+        /// Метод копирует файл
+        /// </summary>
+        /// <param name="path">путь к файлу</param>
+        /// <param name="newPath">путь куда будет скопирован файл</param>
+        static public void CopyFile(string path, string newPath)
+        {
+            File.Copy($@"{path}", $@"{newPath}");
+        }
+
+        /// <summary>
+        /// Метод выводит массив на экран
+        /// </summary>
+        /// <param name="array"></param>
         static public void DisplayArray(int[] array)
         {
-            for(int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.Length; i++)
             {
                 Console.Write(array[i] + " ");
             }
         }
 
+        /// <summary>
+        /// Метож архивирует файл
+        /// </summary>
+        /// <param name="path">путь к файлу который необходимо заархивировать</param>
+        /// <param name="destPath">путь куда необходимо сохранить заархивированный файл</param>
+        static public void CompressFile(string path, string destPath)
+        {
+            using (FileStream ss = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                using (FileStream ts = File.Create(destPath))   // поток для записи сжатого файла
+                {
+                    // поток архивации
+                    using (GZipStream cs = new GZipStream(ts, CompressionMode.Compress))
+                    {
+                        ss.CopyTo(cs); // копируем байты из одного потока в другой
+                        Console.WriteLine("Сжатие файла {0} завершено. Было: {1}  стало: {2}.",
+                                          path,
+                                          ss.Length,
+                                          ts.Length);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Метод разархивирует сжатый файл
+        /// </summary>
+        /// <param name="path">путь к заархивированному файлу</param>
+        /// <param name="destPath">путь куда сохранить разархивированный файл</param>
+        static public void DecompressFile(string path, string destPath)
+        {
+            using (FileStream ss = new FileStream(path, FileMode.OpenOrCreate))  // поток для чтения из сжатого файла
+            {
+
+                using (FileStream ts = File.Create($"{destPath}_.txt")) // поток для записи восстановленного файла
+                {
+                    // поток разархивации
+                    using (GZipStream ds = new GZipStream(ss, CompressionMode.Decompress))
+                    {
+                        ds.CopyTo(ts);
+                        Console.WriteLine($"{destPath} разархивирован");
+
+                        Console.WriteLine("Востановление файла {0} завершено. Было: {1}  стало: {2}.",
+                                          path,
+                                          ss.Length,
+                                          ts.Length);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Главное меню
+        /// </summary>
+        static public void Menu()
+        {
+            while (true)
+            {
+                Console.Clear();
+
+                Console.WriteLine("0 - Ввести путь к файлу.\n" +
+                    "1 - Узнать количество групп." +
+                    "\n2 - Получить заполненные группы и записать их в файл." +
+                    "\n3 - Удалить файл." +
+                    "\n4 - Проверить существует ли файл по указанному пути." + 
+                    "\n5 - Переместить файл." +
+                    "\n6 - Скопировать файл." +
+                    "\n7 - Заархивировать файл." +
+                    "\n8 - Разархивировать файл.");
+
+                int input = Convert.ToInt32(Console.ReadLine());
+
+                if (input == 1)
+                {
+                    Console.Clear();
+                    DateTime date = DateTime.Now;
+
+                    Hakaton(ReadFile(path));
+                    Console.WriteLine("Количество групп - " + GetM());
+
+                    TimeSpan span = date - DateTime.Now;
+                    Console.WriteLine($"Время выполнения в секундах {span.TotalSeconds}");
+                    Console.WriteLine($"Время выполнения в миллисекундах {span.TotalMilliseconds}");
+
+                    Console.ReadLine();
+                    Console.Clear();
+                    Menu();
+                }
+                if (input == 2)
+                {
+                    Console.Clear();
+                    DateTime date = DateTime.Now;
+
+
+                    Hakaton(ReadFile(path));
+                    DisplayAll(destinationPath);
+
+                    TimeSpan span = date - DateTime.Now;
+                    Console.WriteLine($"Время выполнения в секундах {span.TotalSeconds}");
+                    Console.WriteLine($"Время выполнения в миллисекундах {span.TotalMilliseconds}");
+
+                    Console.ReadLine();
+                    Menu();
+                }
+                if (input == 3)
+                {
+                    Console.WriteLine("Введите путь к файлу который хотите удалить:");
+                    Console.WriteLine("Пример: D:\\Numbers.txt");
+
+                    string path = Console.ReadLine();
+                    DeleteFile(path);
+
+                    Console.WriteLine("Файл удалён.");
+                    Console.ReadLine();
+
+                    Menu();
+                }
+                if (input == 4)
+                {
+                    Console.WriteLine("Введите путь к файлу:");
+                    Console.WriteLine("Пример: D:\\Numbers.txt");
+                    ExistsFile(Console.ReadLine());
+                    Console.ReadLine();
+                    Menu();
+                }
+                if (input == 5)
+                {
+                    Console.WriteLine("Введите путь к файлу:");
+                    Console.WriteLine("Пример: D:\\Numbers.txt");
+
+                    string path = Console.ReadLine();
+
+                    Console.WriteLine("Введите путь куда будет перемещен файл:");
+
+                    string newPath = Console.ReadLine();
+
+                    MoveFile(path, newPath);
+                    Console.WriteLine("Файл перемещен.");
+                    Console.ReadLine();
+                    Menu();
+                }
+                if (input == 6)
+                {
+                    Console.WriteLine("Введите путь к файлу:");
+                    Console.WriteLine("Пример: D:\\Numbers.txt");
+
+                    string path = Console.ReadLine();
+
+                    Console.WriteLine("Введите путь куда будет скопирован файл:");
+
+                    string newPath = Console.ReadLine();
+
+                    CopyFile(path, newPath);
+                    Console.WriteLine("Файл скопирован.");
+                    Console.ReadLine();
+                    Menu();
+                }
+                if (input == 0)
+                {
+                    InputPath();
+                    Console.WriteLine("Путь к файлам сохранён.");
+                    Console.ReadLine();
+                    Menu();
+                }
+                
+            }
+        }
+
+
         static void Main(string[] args)
         {
-            //InputPath();
-            //int[] n = new int[10];
-            //StreamWrite(n,1);
-            DisplayArray(StreamReadAndPushInArray());
-            //DisplayArray(StreamReadAndPushInArray());
-            //PushNumb(StreamReadAndPushInArray());
-            //Hakaton(StreamReadAndPushInArray());
-            //StreamRead();
+            Menu();
         }
+
     }
 }
