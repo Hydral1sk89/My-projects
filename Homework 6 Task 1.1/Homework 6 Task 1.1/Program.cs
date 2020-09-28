@@ -326,6 +326,7 @@ namespace Homework_6_Task_1._1
                     }
                 }
             }
+
         }
 
         /// <summary>
@@ -345,7 +346,8 @@ namespace Homework_6_Task_1._1
                     "\n5 - Переместить файл." +
                     "\n6 - Скопировать файл." +
                     "\n7 - Заархивировать файл." +
-                    "\n8 - Разархивировать файл.");
+                    "\n8 - Разархивировать файл." +
+                    "\n9 - Показать данные из файла на экране консоли.");
 
                 int input = Convert.ToInt32(Console.ReadLine());
 
@@ -379,6 +381,25 @@ namespace Homework_6_Task_1._1
                     Console.WriteLine($"Время выполнения в миллисекундах {span.TotalMilliseconds}");
 
                     Console.ReadLine();
+                    Console.WriteLine("Хотите заархивировать файл с результатом?");
+                    Console.WriteLine("1 - да" +
+                        "\n2 - нет");
+                    int choose = Convert.ToInt32(Console.ReadLine());
+
+                    if (choose == 1)
+                    {
+                        Console.WriteLine("Введите путь для сохранения файла:");
+                        Console.WriteLine("Пример: D:\\Numbers.txt");
+                        string path = Console.ReadLine();
+
+                        CompressFile(destinationPath, path);
+                        Console.ReadLine();
+                        Menu();
+                    }
+                    if (choose == 2)
+                    {
+                        Menu();
+                    }
                     Menu();
                 }
                 if (input == 3)
@@ -433,6 +454,39 @@ namespace Homework_6_Task_1._1
                     Console.WriteLine("Файл скопирован.");
                     Console.ReadLine();
                     Menu();
+                }
+                if (input == 7)
+                {
+                    Console.Clear();
+
+                    InputPath();
+                    
+                    CompressFile(path, destinationPath);
+
+                    Console.ReadLine();
+                    Console.Clear();
+                    Menu();
+                }
+                if (input == 8)
+                {
+                    Console.Clear();
+
+                    InputPath();
+
+                    DecompressFile(path, destinationPath);
+
+                    Console.ReadLine();
+                    Console.Clear();
+                    Menu();
+                }
+                if (input == 9)
+                {
+                    Console.WriteLine("Введите путь к файлу данные которого выведутся на экран:");
+                    Console.WriteLine("Пример: D:\\Numbers.txt");
+                    string path = Console.ReadLine();
+                    Console.Clear();
+                    DisplayAll(path);
+                    Console.ReadLine();
                 }
                 if (input == 0)
                 {
