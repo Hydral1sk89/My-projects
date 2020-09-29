@@ -145,15 +145,8 @@ namespace Homework_6_Task_1._1
 
                 while ((line = sr.ReadLine()) != null)
                 {
-                    //Aline = line.Split(' ');
                     int[] array = line.Split(' ').Select(int.Parse).ToArray();
                     lastNumber = array;
-                    //Aline = line.Split().Select(int.Parse).ToArray();
-                    //lastNumber = Aline.Select(int.Parse).ToArray();
-                    //lastNumber = Array.ConvertAll(Aline, int.Parse);
-                    //lastNumber = Array.ConvertAll(Aline, element => (Convert.ToInt32(element)));
-                    //lastNumber = Array.ConvertAll(Aline, int.Parse);
-                    //DisplayArray(lastNumber);
                 }
             }
             return lastNumber;
@@ -201,6 +194,27 @@ namespace Homework_6_Task_1._1
         }
 
         /// <summary>
+        /// метод принимает массив чисел и записывает этот массив в виде строки в файл
+        /// </summary>
+        /// <param name="numbers">массив чисел</param>
+        static public void StreamWrite(int[] numbers)
+        {
+            int i = 0;
+
+            using (StreamWriter sw = new StreamWriter(destinationPath, true, Encoding.Unicode))
+            {
+                while (i < numbers.Length)
+                {
+                    string note = string.Empty;
+                    note += Convert.ToString(numbers[i]);
+                    sw.Write(note + " ");
+                    i++;
+                }
+                sw.WriteLine();
+            }
+        }
+
+        /// <summary>
         /// вставляет в массив значения от 1 и далее
         /// </summary>
         /// <param name="numbers">массив</param>
@@ -215,6 +229,18 @@ namespace Homework_6_Task_1._1
             }
 
             return numbers;
+        }
+
+        /// <summary>
+        /// Метод создает массив указанного размера
+        /// </summary>
+        /// <param name="length">длина массива</param>
+        /// <returns></returns>
+        static public int[] CreateArray(int length)
+        {
+            int[] array = new int[length];
+
+            return array;
         }
 
         /// <summary>
@@ -334,75 +360,116 @@ namespace Homework_6_Task_1._1
         /// </summary>
         static public void Menu()
         {
-            while (true)
+            int menu = -1;
+            bool isNum = false;
+
+            while (!isNum || menu < 0 || menu > 9)
             {
                 Console.Clear();
 
-                Console.WriteLine("0 - Ввести путь к файлу.\n" +
+                Console.WriteLine("10 - Ввести путь к файлу.\n" +
+                    "11 - Создать массив, заполнить его числами и сохранить в файл.\n\n"+
                     "1 - Узнать количество групп." +
                     "\n2 - Получить заполненные группы и записать их в файл." +
                     "\n3 - Удалить файл." +
-                    "\n4 - Проверить существует ли файл по указанному пути." + 
+                    "\n4 - Проверить существует ли файл по указанному пути." +
                     "\n5 - Переместить файл." +
                     "\n6 - Скопировать файл." +
                     "\n7 - Заархивировать файл." +
                     "\n8 - Разархивировать файл." +
                     "\n9 - Показать данные из файла на экране консоли.");
 
-                int input = Convert.ToInt32(Console.ReadLine());
+                string strMenu = Console.ReadLine();
+                isNum = Int32.TryParse(strMenu, out menu);
 
-                if (input == 1)
+                switch (menu)
                 {
-                    Console.Clear();
-                    DateTime date = DateTime.Now;
+                    case 11:
+                        {
+                            Console.WriteLine("Введите длину массива:");
+                            int length = Convert.ToInt32(Console.ReadLine());
 
-                    Hakaton(ReadFile(path));
-                    Console.WriteLine("Количество групп - " + GetM());
+                            Console.WriteLine("Введите путь куда будет сохранен файл:");
+                            destinationPath = Console.ReadLine();
 
-                    TimeSpan span = date - DateTime.Now;
-                    Console.WriteLine($"Время выполнения в секундах {span.TotalSeconds}");
-                    Console.WriteLine($"Время выполнения в миллисекундах {span.TotalMilliseconds}");
+                            //Создаем массив указанной длины, заполняем массив числами от 1 до длины массива и сохраняем результат в файл
+                            StreamWrite(PushNumb(CreateArray(length)));
 
-                    Console.ReadLine();
-                    Console.Clear();
-                    Menu();
-                }
-                if (input == 2)
-                {
-                    Console.Clear();
-                    DateTime date = DateTime.Now;
+                            Console.WriteLine("Файл создан.");
+                            Console.ReadLine();
+                            Menu();
+                            break;
+                        }
+                    case 10:
+                        {
+                            InputPath();
+                            Console.WriteLine("Путь к файлам сохранён.");
+                            Console.ReadLine();
+                            Menu();
+                            break;
+                        }
+                    case 1:
+                        {
+                            Console.Clear();
+                            DateTime date = DateTime.Now;
 
+                            Hakaton(ReadFile(path));
+                            Console.WriteLine("Количество групп - " + GetM());
 
-                    Hakaton(ReadFile(path));
-                    DisplayAll(destinationPath);
+                            TimeSpan span = date - DateTime.Now;
+                            Console.WriteLine($"Время выполнения в секундах {span.TotalSeconds}");
+                            Console.WriteLine($"Время выполнения в миллисекундах {span.TotalMilliseconds}");
 
-                    TimeSpan span = date - DateTime.Now;
-                    Console.WriteLine($"Время выполнения в секундах {span.TotalSeconds}");
-                    Console.WriteLine($"Время выполнения в миллисекундах {span.TotalMilliseconds}");
+                            Console.ReadLine();
+                            Console.Clear();
+                            Menu();
+                            break;
+                        }
+                    case 2:
+                        {
+                            InputPath();
 
-                    Console.ReadLine();
-                    Console.WriteLine("Хотите заархивировать файл с результатом?");
-                    Console.WriteLine("1 - да" +
-                        "\n2 - нет");
-                    int choose = Convert.ToInt32(Console.ReadLine());
+                            Console.Clear();
+                            DateTime date = DateTime.Now;
 
-                    if (choose == 1)
-                    {
-                        Console.WriteLine("Введите путь для сохранения файла:");
-                        Console.WriteLine("Пример: D:\\Numbers.txt");
-                        string path = Console.ReadLine();
+                            Hakaton(ReadFile(path));
+                            DisplayAll(destinationPath);
 
-                        CompressFile(destinationPath, path);
-                        Console.ReadLine();
-                        Menu();
-                    }
-                    if (choose == 2)
-                    {
-                        Menu();
-                    }
-                    Menu();
-                }
-                if (input == 3)
+                            TimeSpan span = date - DateTime.Now;
+                            Console.WriteLine($"Время выполнения в секундах {span.TotalSeconds}");
+                            Console.WriteLine($"Время выполнения в миллисекундах {span.TotalMilliseconds}");
+                            Console.ReadLine();
+
+                            string choose = "0";
+
+                            while (choose != "1" || choose != "2")
+                            {
+                                Console.WriteLine("Хотите заархивировать файл с результатом?");
+                                Console.WriteLine("1 - да" +
+                                "\n2 - нет");
+
+                                choose = Console.ReadLine();
+
+                                if (choose == "1")
+                                {
+                                    Console.WriteLine("Введите путь для сохранения файла:");
+                                    Console.WriteLine("Пример: D:\\Numbers.txt");
+                                    string path = Console.ReadLine();
+
+                                    CompressFile(destinationPath, path);
+                                    Console.ReadLine();
+                                    Menu();
+                                }
+
+                                if (choose == "2")
+                                {
+                                    Menu();
+                                }
+                            }
+                            Menu();
+                            break;  
+                        }
+                    case 3:
                 {
                     Console.WriteLine("Введите путь к файлу который хотите удалить:");
                     Console.WriteLine("Пример: D:\\Numbers.txt");
@@ -414,16 +481,18 @@ namespace Homework_6_Task_1._1
                     Console.ReadLine();
 
                     Menu();
+                            break;
                 }
-                if (input == 4)
+                    case 4:
                 {
                     Console.WriteLine("Введите путь к файлу:");
                     Console.WriteLine("Пример: D:\\Numbers.txt");
                     ExistsFile(Console.ReadLine());
                     Console.ReadLine();
                     Menu();
+                            break;
                 }
-                if (input == 5)
+                    case 5:
                 {
                     Console.WriteLine("Введите путь к файлу:");
                     Console.WriteLine("Пример: D:\\Numbers.txt");
@@ -438,8 +507,9 @@ namespace Homework_6_Task_1._1
                     Console.WriteLine("Файл перемещен.");
                     Console.ReadLine();
                     Menu();
-                }
-                if (input == 6)
+                            break;
+                        }
+                    case 6:
                 {
                     Console.WriteLine("Введите путь к файлу:");
                     Console.WriteLine("Пример: D:\\Numbers.txt");
@@ -454,20 +524,22 @@ namespace Homework_6_Task_1._1
                     Console.WriteLine("Файл скопирован.");
                     Console.ReadLine();
                     Menu();
+                            break;
                 }
-                if (input == 7)
+                    case 7:
                 {
                     Console.Clear();
 
                     InputPath();
-                    
+
                     CompressFile(path, destinationPath);
 
                     Console.ReadLine();
                     Console.Clear();
                     Menu();
+                            break;
                 }
-                if (input == 8)
+                    case 8:
                 {
                     Console.Clear();
 
@@ -478,8 +550,9 @@ namespace Homework_6_Task_1._1
                     Console.ReadLine();
                     Console.Clear();
                     Menu();
+                            break;
                 }
-                if (input == 9)
+                    case 9:
                 {
                     Console.WriteLine("Введите путь к файлу данные которого выведутся на экран:");
                     Console.WriteLine("Пример: D:\\Numbers.txt");
@@ -487,15 +560,11 @@ namespace Homework_6_Task_1._1
                     Console.Clear();
                     DisplayAll(path);
                     Console.ReadLine();
+                            Menu();
+                            break;
                 }
-                if (input == 0)
-                {
-                    InputPath();
-                    Console.WriteLine("Путь к файлам сохранён.");
-                    Console.ReadLine();
-                    Menu();
+
                 }
-                
             }
         }
 
