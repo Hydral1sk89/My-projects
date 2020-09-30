@@ -115,6 +115,26 @@ namespace Homework_6_Task_1._1
         }
 
         /// <summary>
+        /// Метод принимает массив с цифрами и возвращает количество групп
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns></returns>
+        public static int GetM(int[] array)
+        {
+            int group = 0;
+            int d = array.Length;
+
+            while (d != 1)
+            {
+                d = d / 2;
+                if (d != 1)d = d + 1;
+                group++;
+            }
+
+            return group;
+        }
+
+        /// <summary>
         /// Метод читает данные из файла и выводит их на экран консоли
         /// </summary>
         static public void DisplayFile()
@@ -137,7 +157,7 @@ namespace Homework_6_Task_1._1
         /// <returns></returns>
         static public int[] StreamReadAndPushInArray()
         {
-            int[] lastNumber = new int[10];
+            int[] lastNumber = new int[1];
 
             using (StreamReader sr = new StreamReader(path, Encoding.Unicode))
             {
@@ -207,7 +227,8 @@ namespace Homework_6_Task_1._1
                 {
                     string note = string.Empty;
                     note += Convert.ToString(numbers[i]);
-                    sw.Write(note + " ");
+                    sw.Write(note);
+                    if (i != numbers.Length - 1) sw.Write(" ");
                     i++;
                 }
                 sw.WriteLine();
@@ -413,8 +434,8 @@ namespace Homework_6_Task_1._1
                             Console.Clear();
                             DateTime date = DateTime.Now;
 
-                            Hakaton(ReadFile(path));
-                            Console.WriteLine("Количество групп - " + GetM());
+                            int m = GetM(ReadFile(path));
+                            Console.WriteLine("Количество групп - " + m);
 
                             TimeSpan span = date - DateTime.Now;
                             Console.WriteLine($"Время выполнения в секундах {span.TotalSeconds}");
