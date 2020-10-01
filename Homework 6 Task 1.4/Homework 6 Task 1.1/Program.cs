@@ -94,6 +94,51 @@ namespace Homework_6_Task_1._1
         }
 
         /// <summary>
+        /// Метод принимает число N, разбивает на группы и записывает результат в файл
+        /// </summary>
+        /// <param name="N">число N</param>
+        static public void Hakaton(int N)
+        {
+            //Переменные в которых будут храниться значения ОТ и ДО 
+            int From = 0;
+            int To = 0;
+
+            //Переменная "от"
+            To = N;
+            //Переменная "до"
+            From = To / 2 + 1;
+            //Счётчик группы
+            int CountGroup = 1;
+
+            using (StreamWriter sw = new StreamWriter(destinationPath, true, Encoding.Unicode))
+            {
+                while (To != 1)
+                {
+                    sw.Write($"Группа {CountGroup}: ");
+
+                    CountGroup++;
+
+                    while (From != To + 1)
+                    {
+                        sw.Write(From + " ");
+                        From++;
+                    }
+
+                    sw.WriteLine();
+
+                    From = To / 2 + 1;
+                    
+                    To = From - 1;
+
+                    //Возвращаем указатель "ОТ"
+                    From = To / 2 + 1;
+
+                }
+                sw.Write($"Группа {CountGroup}: " + 1);
+            }
+        }
+
+        /// <summary>
         /// Метод возвращает число M - количество групп разделённых чисел 
         /// </summary>
         public static int GetM()
@@ -499,13 +544,7 @@ namespace Homework_6_Task_1._1
                             Console.Clear();
                             DateTime date = DateTime.Now;
 
-                            int[] arr = CreateArray(ReadQuantiyN(path));
-
-                            arr = PushNumb(arr);
-
-                            Hakaton(arr);
-
-                            DisplayAll(destinationPath);
+                            Hakaton(ReadQuantiyN(path));
 
                             TimeSpan span = date - DateTime.Now;
                             Console.WriteLine($"Время выполнения в секундах {span.TotalSeconds}");
