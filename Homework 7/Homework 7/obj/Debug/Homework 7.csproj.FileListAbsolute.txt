@@ -1,0 +1,14 @@
+d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 7\Homework 7\bin\Debug\Homework 7.exe.config
+d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 7\Homework 7\bin\Debug\Homework 7.exe
+d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 7\Homework 7\bin\Debug\Homework 7.pdb
+d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 7\Homework 7\obj\Debug\Homework 7.csprojAssemblyReference.cache
+d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 7\Homework 7\obj\Debug\Homework 7.csproj.CoreCompileInputs.cache
+d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 7\Homework 7\obj\Debug\Homework 7.exe
+d:\Users\Саня\Documents\Visual Studio 2017\Projects\Homework 7\Homework 7\obj\Debug\Homework 7.pdb
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 7\Homework 7\bin\Debug\Homework 7.exe.config
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 7\Homework 7\bin\Debug\Homework 7.exe
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 7\Homework 7\bin\Debug\Homework 7.pdb
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 7\Homework 7\obj\Debug\Homework 7.csprojAssemblyReference.cache
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 7\Homework 7\obj\Debug\Homework 7.csproj.CoreCompileInputs.cache
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 7\Homework 7\obj\Debug\Homework 7.exe
+d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 7\Homework 7\obj\Debug\Homework 7.pdb

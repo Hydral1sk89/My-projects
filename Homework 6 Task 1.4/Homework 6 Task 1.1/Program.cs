@@ -682,7 +682,9 @@ namespace Homework_6_Task_1._1
 
         static void Main(string[] args)
         {
-            Menu();
+            //Menu();
+
+            File.OpenRead(@"D:\Numbers.txt");
         }
 
     }
