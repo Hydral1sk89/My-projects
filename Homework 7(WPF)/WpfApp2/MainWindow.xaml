@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="Todo Scheduler" Height="450" Width="1722.688">
+        Title="Todo Scheduler" Height="450" Width="1722.688" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
@@ -19,13 +19,13 @@
                 <MenuItem Header="Exit" Height="30" Margin="0,0,-10,0" Click="File_Exit_Click"/>
             </MenuItem>
         </Menu>
-        <DataGrid x:Name="dgTodoList" FontSize="16" FontWeight="Bold" Margin="20,29,0,10" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+        <DataGrid x:Name="dgTodoList" FontSize="16" FontWeight="Bold" Margin="10,30,10,10" AutoGenerateColumns="False" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=CreationDate}" IsReadOnly="True" Header="CreationDate" Width="180" />
-                <DataGridCheckBoxColumn Binding="{Binding Path=Done}" IsReadOnly="False" Header="Done" Width="80" />
+                <DataGridCheckBoxColumn Binding="{Binding Path=Done}" IsReadOnly="False" Header="Done" Width="70" />
                 <DataGridTextColumn Binding="{Binding Path=Todo}" IsReadOnly="False" Header="Todo" Width="250" />
-                <DataGridTextColumn IsReadOnly="False" Header="Deadline" Width="180" />
-                <DataGridTextColumn IsReadOnly="False" Header="Description" Width="1000" />
+                <DataGridTextColumn Binding="{Binding Path=Deadline}" IsReadOnly="False" Header="Deadline" Width="180" />
+                <DataGridTextColumn Binding="{Binding Path=Description}" IsReadOnly="False" Header="Description" Width="1000*" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
