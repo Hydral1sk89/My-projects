@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 
+
 namespace WpfApp2
 {
     /// <summary>
@@ -27,14 +29,59 @@ namespace WpfApp2
             InitializeComponent();
         }
 
-        List<OnePageList> OnePageList;
+        //объявляем переменную list типа BindingList. BindingList нужен потому что в дальнейшем будем использовать метод .ListChanged
+        BindingList<OnePageList> Blist;
 
+        /// <summary>
+        /// код выполняется при запуске приложения
+        /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            File.CreateText(@"1.csv").Dispose();
-            new List<OnePageList>();
-            dgTodoList.ItemsSource = OnePageList;
+            //OnePageList[0] = new OnePageList(DateTime.Now, false, "сделать домашку", DateTime.Now, "мне необходимо сдлать домашнюю работу");
+            ////OnePageList = File.OpenText(@"1.csv");
+            //File.CreateText(@"1.csv").Dispose();
+            //new List<OnePageList>();
+
+            //создаем новую строку
+            Blist = new BindingList<OnePageList>()
+            {
+                new OnePageList(DateTime.Now, false, "сделать домашку", DateTime.Now, "мне необходимо сдлать домашнюю работу")
+            };
+
+            //добавляет заполненную строку на экран приложения
+            dgTodoList.ItemsSource = Blist;
+
+            //Подписываемся на событие
+            Blist.ListChanged += _todoDataList_ListChanged;
+
         }
+
+        /// <summary>
+        /// добавляем ещё одну строку
+        /// </summary>
+        private void _todoDataList_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            if (e.ListChangedType == ListChangedType.ItemAdded || e.ListChangedType == ListChangedType.ItemDeleted || e.ListChangedType == ListChangedType.ItemChanged)
+            {
+                Blist = new BindingList<OnePageList>() {
+                new OnePageList(DateTime.Now, false, "сделать домашку", DateTime.Now, "мне необходимо сдлать домашнюю работу"),
+                new OnePageList(DateTime.Now, false, "сделать домашку", DateTime.Now, "мне необходимо сдлать домашнюю работу")
+            };
+                dgTodoList.ItemsSource = Blist;
+                //try
+                //{
+                //    _fileIOService.SaveData(sender);
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show(ex.Message);
+                //    Close();
+                //}
+            }
+        }
+
+        #region Обработка кнопок меню
+        //filedialog - это "проводник"
 
         void File_Open_Click(object sender, RoutedEventArgs e)
         {
@@ -102,5 +149,6 @@ namespace WpfApp2
         {
             Environment.Exit(1);
         }
+        #endregion
     }
 }

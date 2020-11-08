@@ -22,7 +22,7 @@
         <DataGrid x:Name="dgTodoList" FontSize="16" FontWeight="Bold" Margin="10,30,10,10" AutoGenerateColumns="False" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=CreationDate}" IsReadOnly="True" Header="CreationDate" Width="180" />
-                <DataGridCheckBoxColumn Binding="{Binding Path=Done}" IsReadOnly="False" Header="Done" Width="70" />
+                <DataGridCheckBoxColumn Binding="{Binding Path=IsDone}" IsReadOnly="False" Header="Done" Width="70" />
                 <DataGridTextColumn Binding="{Binding Path=Todo}" IsReadOnly="False" Header="Todo" Width="250" />
                 <DataGridTextColumn Binding="{Binding Path=Deadline}" IsReadOnly="False" Header="Deadline" Width="180" />
                 <DataGridTextColumn Binding="{Binding Path=Description}" IsReadOnly="False" Header="Description" Width="1000*" />
