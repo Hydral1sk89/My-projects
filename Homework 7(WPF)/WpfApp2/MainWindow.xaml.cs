@@ -15,7 +15,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using System.Linq;
 
+/// Разработать ежедневник.
+/// В ежедневнике реализовать возможность 
+/// - создания
+/// - удаления
+/// - редактирования 
+/// записей
+/// 
+/// В отдельной записи должно быть не менее пяти полей
+/// 
+/// Реализовать возможность 
+/// - Загрузки данных из файла
+/// - Выгрузки данных в файл
+/// - Добавления данных в текущий ежедневник из выбранного файла
+/// - Импорт записей по выбранному диапазону дат
+/// - Упорядочивания записей ежедневника по выбранному полю
 
 namespace WpfApp2
 {
@@ -29,31 +45,43 @@ namespace WpfApp2
             InitializeComponent();
         }
 
-        //объявляем переменную list типа BindingList. BindingList нужен потому что в дальнейшем будем использовать метод .ListChanged
-        BindingList<OnePageList> Blist;
+        //объявляем переменную Blist типа BindingList. BindingList нужен потому что в дальнейшем будем использовать метод .ListChanged
+        public BindingList<OnePageList> Blist = new BindingList<OnePageList>();
+
+        string PATH = $"{Environment.CurrentDirectory}\\Data.csv";
+        FileIOService _fileIOService;
+
 
         /// <summary>
         /// код выполняется при запуске приложения
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //OnePageList[0] = new OnePageList(DateTime.Now, false, "сделать домашку", DateTime.Now, "мне необходимо сдлать домашнюю работу");
-            ////OnePageList = File.OpenText(@"1.csv");
-            //File.CreateText(@"1.csv").Dispose();
-            //new List<OnePageList>();
+            _fileIOService = new FileIOService(PATH);
 
-            //создаем новую строку
-            Blist = new BindingList<OnePageList>()
+            try
             {
-                new OnePageList(DateTime.Now, false, "сделать домашку", DateTime.Now, "мне необходимо сдлать домашнюю работу")
-            };
+                Blist = _fileIOService.LoadData();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Close();
+            }
 
             //добавляет заполненную строку на экран приложения
             dgTodoList.ItemsSource = Blist;
 
             //Подписываемся на событие
             Blist.ListChanged += _todoDataList_ListChanged;
+        }
 
+        public void AddBlist(string[] arr)
+        {
+            string[] array = arr;
+
+            Blist = new BindingList<OnePageList>() {new OnePageList ( Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
+                    array[2], Convert.ToDateTime(array[3]), array[4] )};
         }
 
         /// <summary>

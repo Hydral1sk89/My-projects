@@ -10,7 +10,7 @@ namespace WpfApp2
     /// <summary>
     /// класс описывает одну строку планировщика
     /// </summary>
-    class OnePageList : INotifyPropertyChanged
+    public class OnePageList : INotifyPropertyChanged
     {
         #region конструктор
         public OnePageList(DateTime CreationDate, bool IsDone, string Todo, DateTime Deadline, string Description)
@@ -65,6 +65,7 @@ namespace WpfApp2
                 if (_description == value) return;
 
                 _description = value;
+                OnPropertyChanged("Description");
             }
         }
         #endregion
@@ -74,6 +75,7 @@ namespace WpfApp2
 
         protected virtual void OnPropertyChanged(string propertyName = "")
         {
+            //проверка PropertyChanged != null 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
