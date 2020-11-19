@@ -15,7 +15,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
-using System.Linq;
 
 /// Разработать ежедневник.
 /// В ежедневнике реализовать возможность 
@@ -63,7 +62,7 @@ namespace WpfApp2
             {
                 Blist = _fileIOService.LoadData();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 Close();
@@ -74,13 +73,15 @@ namespace WpfApp2
 
             //Подписываемся на событие
             Blist.ListChanged += _todoDataList_ListChanged;
+
+            MessageBox.Show(Convert.ToString(Blist.Count));
         }
 
-        public void AddBlist(string[] arr)
+        public BindingList<OnePageList> AddBlist(string[] arr)
         {
             string[] array = arr;
 
-            Blist = new BindingList<OnePageList>() {new OnePageList ( Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
+            return new BindingList<OnePageList>() {new OnePageList ( Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
                     array[2], Convert.ToDateTime(array[3]), array[4] )};
         }
 
@@ -94,8 +95,11 @@ namespace WpfApp2
                 Blist = new BindingList<OnePageList>() {
                 new OnePageList(DateTime.Now, false, "сделать домашку", DateTime.Now, "мне необходимо сдлать домашнюю работу"),
                 new OnePageList(DateTime.Now, false, "сделать домашку", DateTime.Now, "мне необходимо сдлать домашнюю работу")
+                
             };
+                MessageBox.Show("change");
                 dgTodoList.ItemsSource = Blist;
+                MessageBox.Show(Convert.ToString(Blist.Count));
                 //try
                 //{
                 //    _fileIOService.SaveData(sender);

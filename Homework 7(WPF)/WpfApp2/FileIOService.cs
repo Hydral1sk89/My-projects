@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace WpfApp2
 {
@@ -12,7 +13,7 @@ namespace WpfApp2
     {
         MainWindow B = new MainWindow();
 
-        private readonly string PATH;
+        string PATH;
 
         public FileIOService(string path)
         {
@@ -21,34 +22,38 @@ namespace WpfApp2
 
         public BindingList<OnePageList> LoadData()
         {
-            var fileExists = File.Exists(PATH);
-
-            //Если файл не создан то создаем пустой файл
-            if (!fileExists)
+            try
             {
-                File.CreateText(PATH).Dispose();
-                return new BindingList<OnePageList>();
-            }
-            
-            string[] array;
-
-            using (StreamReader sr = new StreamReader(PATH))
-            {
-                string line;
-
-                while (!sr.EndOfStream)
+                var fileExists = File.Exists(PATH);
+                //Если файл не создан то создаем пустой файл
+                if (!fileExists)
                 {
-                    line = sr.ReadLine();
-                    array = line.Split(',').ToArray();
-
-                    B.AddBlist(array);
+                    File.CreateText(PATH).Dispose();
+                    return new BindingList<OnePageList>() { };
                 }
 
+                string[] array;
+
+                using (StreamReader sr = new StreamReader(PATH, Encoding.GetEncoding(1)))
+                {
+                    string line;
+
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        array = line.Split(',').ToArray();
+                        B.Blist.Add(new OnePageList (Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
+                    array[2], Convert.ToDateTime(array[3]), array[4]));
+                    }
+                    
+                }
             }
-
-            return new BindingList<OnePageList>();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return B.Blist;
         }
-
+        
         public void SaveData(object todoDataList)
         {
             //using (StreamWriter writer = File.CreateText(PATH))
