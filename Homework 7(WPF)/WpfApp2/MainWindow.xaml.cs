@@ -58,15 +58,20 @@ namespace WpfApp2
         {
             _fileIOService = new FileIOService(PATH);
 
-            try
+            if (Blist.Count < 1)
             {
-                Blist = _fileIOService.LoadData();
+                Blist.Add(new OnePageList(DateTime.Now, false, "", DateTime.Now, ""));
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                Close();
-            }
+
+            //try
+            //{
+            //    Blist = _fileIOService.LoadData();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //    Close();
+            //}
 
             //добавляет заполненную строку на экран приложения
             dgTodoList.ItemsSource = Blist;
@@ -74,7 +79,7 @@ namespace WpfApp2
             //Подписываемся на событие
             Blist.ListChanged += _todoDataList_ListChanged;
 
-            MessageBox.Show(Convert.ToString(Blist.Count));
+            //MessageBox.Show(Convert.ToString(Blist.Count));
         }
 
         public BindingList<OnePageList> AddBlist(string[] arr)
@@ -92,95 +97,215 @@ namespace WpfApp2
         {
             if (e.ListChangedType == ListChangedType.ItemAdded || e.ListChangedType == ListChangedType.ItemDeleted || e.ListChangedType == ListChangedType.ItemChanged)
             {
-                Blist = new BindingList<OnePageList>() {
-                new OnePageList(DateTime.Now, false, "сделать домашку", DateTime.Now, "мне необходимо сдлать домашнюю работу"),
-                new OnePageList(DateTime.Now, false, "сделать домашку", DateTime.Now, "мне необходимо сдлать домашнюю работу")
-                
-            };
-                MessageBox.Show("change");
-                dgTodoList.ItemsSource = Blist;
-                MessageBox.Show(Convert.ToString(Blist.Count));
-                //try
+                if (Blist.Count < 1)
+                {
+                    Blist.Add(new OnePageList(DateTime.Now, false,"", DateTime.Now, ""));
+                }
+                //if((Blist[Blist.Count-1].Description != "") && (Blist[Blist.Count-1].Todo != ""))
                 //{
-                //    _fileIOService.SaveData(sender);
+                //    Blist.Add(new OnePageList(DateTime.Now, false, "", DateTime.Now, ""));
                 //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show(ex.Message);
-                //    Close();
-                //}
+
+                //    //    Blist = new BindingList<OnePageList>() {
+                //    //    new OnePageList(DateTime.Now, false, "сделать домашку", DateTime.Now, "мне необходимо сдлать домашнюю работу"),
+                //    //    new OnePageList(DateTime.Now, false, "сделать домашку", DateTime.Now, "мне необходимо сдлать домашнюю работу")
+
+                    //    //};
+                    //    //MessageBox.Show("change");
+                    //    //dgTodoList.ItemsSource = Blist;
+                    //    //MessageBox.Show(Convert.ToString(Blist.Count));
+                    //    try
+                    //    {
+                    //        _fileIOService.SaveData(sender);
+                    //    }
+                    //    catch (Exception ex)
+                    //    {
+                    //        MessageBox.Show(ex.Message);
+                    //        Close();
+                    //    }
             }
         }
 
         #region Обработка кнопок меню
         //filedialog - это "проводник"
+        OpenFileDialog fileDialog = new OpenFileDialog();
 
         void File_Open_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
+
+
             fileDialog.Multiselect = false;
             fileDialog.Filter = "CSV Files|*.csv";
             fileDialog.DefaultExt = ".csv";
+
             Nullable<bool> dialogOK = fileDialog.ShowDialog();
 
             if (dialogOK == true)
             {
-                string sFileNames = "";
 
-                foreach (string sFileName in fileDialog.FileNames)
+                //Очистить Blist
+                Blist.Clear();
+                
+                try
                 {
-                    sFileNames += ";" + sFileName;
+                    //Найти путь к файлу который открыли
+                    string sFileNames = "";
+
+                    foreach (string sFileName in fileDialog.FileNames)
+                    {
+                        sFileNames += ";" + sFileName;
+                    }
+
+                    sFileNames = sFileNames.Substring(1);
+                    // /
+
+                    string[] array;
+
+                    using (StreamReader sr = new StreamReader(sFileNames, Encoding.GetEncoding(1251)))
+                    {
+                        string line;
+
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            array = line.Split(',').ToArray();
+                            Blist.Add(new OnePageList(Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
+                        array[2], Convert.ToDateTime(array[3]), array[4]));
+                        }
+                    }
+                    dgTodoList.ItemsSource = Blist;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
 
-                sFileNames = sFileNames.Substring(1);
+                //MessageBox.Show("test");
+
             }
         }
 
         void File_Save_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog fileDialog = new SaveFileDialog();
-            fileDialog.Filter = "CSV Files|*.csv";
-            fileDialog.DefaultExt = ".csv";
-            Nullable<bool> dialogOK = fileDialog.ShowDialog();
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
 
-            if (dialogOK == true)
+            saveFileDialog.Filter = "CSV Files|*.csv";
+            saveFileDialog.DefaultExt = ".csv";
+            Nullable<bool> sdialogOK = saveFileDialog.ShowDialog();
+
+            if (sdialogOK == true)
             {
-                string sFileNames = "";
-
-                foreach (string sFileName in fileDialog.FileNames)
-                {
-                    sFileNames += ";" + sFileName;
-                }
-
-                sFileNames = sFileNames.Substring(1);
+                //Перезаписываем файл
+                _fileIOService.SaveData(sender, saveFileDialog.FileName);
             }
         }
 
+        //необходимо доделать диапазон импорта (https://www.youtube.com/watch?v=b5K9LXBXUjI&ab_channel=IAmTimCorey)
         void File_Import_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Multiselect = false;
             fileDialog.Filter = "CSV Files|*.csv";
             fileDialog.DefaultExt = ".csv";
+
             Nullable<bool> dialogOK = fileDialog.ShowDialog();
 
             if (dialogOK == true)
             {
-                string sFileNames = "";
-
-                foreach (string sFileName in fileDialog.FileNames)
+                try
                 {
-                    sFileNames += ";" + sFileName;
-                }
+                    //Найти путь к файлу который открыли
+                    string sFileNames = "";
 
-                sFileNames = sFileNames.Substring(1);
+                    foreach (string sFileName in fileDialog.FileNames)
+                    {
+                        sFileNames += ";" + sFileName;
+                    }
+
+                    sFileNames = sFileNames.Substring(1);
+                    // /
+
+                    string[] array;
+
+                    using (StreamReader sr = new StreamReader(sFileNames, Encoding.GetEncoding(1251)))
+                    {
+                        string line;
+
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            array = line.Split(',').ToArray();
+                            Blist.Add(new OnePageList(Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
+                        array[2], Convert.ToDateTime(array[3]), array[4]));
+                        }
+                    }
+                    dgTodoList.ItemsSource = Blist;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
-
+        
         void File_Exit_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(1);
         }
-        #endregion
+
+        void Add_Event_Click(object sender, RoutedEventArgs e)
+        {
+            Blist.Add(new OnePageList(DateTime.Now, false, "", DateTime.Now, ""));
+        }
+
+        void File_New_Click(object sender, RoutedEventArgs e)
+        {
+            Blist.Clear();
+            Blist.Add(new OnePageList(DateTime.Now, false, "", DateTime.Now, ""));
+        }
+
+        public string sFileNames = "";
+
+        void File_explorer_Click(object sender, RoutedEventArgs e)
+        {
+            fileDialog.Multiselect = false;
+            fileDialog.Filter = "CSV Files|*.csv";
+            fileDialog.DefaultExt = ".csv";
+
+            Nullable<bool> dialogOK = fileDialog.ShowDialog();
+
+            if (dialogOK == true)
+            {
+                try
+                {
+                    //Найти путь к файлу который открыли
+
+                    foreach (string sFileName in fileDialog.FileNames)
+                    {
+                        sFileNames += ";" + sFileName;
+                    }
+
+                    sFileNames = sFileNames.Substring(1);
+                    // /
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            
+        }
+
+        void File_Import_range_Click(object sender, RoutedEventArgs e)
+        {
+            //Вызываем окно диапазон импорта
+            Border panel = sender as Border;
+            Window1 popup = new Window1(panel);
+            popup.ShowDialog();
+
+            //DateTime forDate = new DateTime();
+            //DateTime toDate = new DateTime();
+
+            
+        }
+                #endregion
     }
 }

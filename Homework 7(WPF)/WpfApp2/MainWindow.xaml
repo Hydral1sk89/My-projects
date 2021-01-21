@@ -13,11 +13,14 @@
         </Grid.ColumnDefinitions>
         <Menu Grid.ColumnSpan="2">
             <MenuItem FontSize="16" Header="File" FontWeight="Bold">
+                <MenuItem Header="New" Height="30" Margin="0,0,-10,0" Click="File_New_Click"/>
                 <MenuItem Header="Open" Height="30" Margin="0,0,-10,0" Click="File_Open_Click"/>
                 <MenuItem Header="Import" Height="30" Margin="0,0,-10,0" Click="File_Import_Click"/>
+                <MenuItem Header="Import range" Height="30" Margin="0,0,-10,0" Click="File_Import_range_Click"/>
                 <MenuItem Header="Save" Height="30" Margin="0,0,-10,0" Click="File_Save_Click"/>
                 <MenuItem Header="Exit" Height="30" Margin="0,0,-10,0" Click="File_Exit_Click"/>
             </MenuItem>
+            <MenuItem FontSize="16" FontWeight="Bold" Header="Add event" Click="Add_Event_Click"/>
         </Menu>
         <DataGrid x:Name="dgTodoList" FontSize="16" FontWeight="Bold" Margin="10,30,10,10" AutoGenerateColumns="False" Grid.ColumnSpan="2">
             <DataGrid.Columns>
