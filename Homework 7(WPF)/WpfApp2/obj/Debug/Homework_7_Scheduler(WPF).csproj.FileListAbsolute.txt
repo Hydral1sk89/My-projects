@@ -76,5 +76,5 @@ d:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 7(WPF)\WpfApp2
 D:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 7(WPF)\WpfApp2\bin\Debug\DocumentFormat.OpenXml.dll
 D:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 7(WPF)\WpfApp2\bin\Debug\DocumentFormat.OpenXml.xml
 D:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 7(WPF)\WpfApp2\obj\Debug\Homework_7_Scheduler(WPF).csproj.CopyComplete
-D:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 7(WPF)\WpfApp2\obj\Debug\Import_range_window.g.cs
-D:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 7(WPF)\WpfApp2\obj\Debug\Import_range_window.baml
+D:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 7(WPF)\WpfApp2\obj\Debug\Window1.g.cs
+D:\Users\Саня\Desktop\project\Homework 5\My-projects\Homework 7(WPF)\WpfApp2\obj\Debug\Window1.baml

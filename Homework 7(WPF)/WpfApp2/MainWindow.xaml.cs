@@ -42,6 +42,7 @@ namespace WpfApp2
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
         //объявляем переменную Blist типа BindingList. BindingList нужен потому что в дальнейшем будем использовать метод .ListChanged
@@ -244,6 +245,8 @@ namespace WpfApp2
                 }
             }
         }
+
+
         
         void File_Exit_Click(object sender, RoutedEventArgs e)
         {
