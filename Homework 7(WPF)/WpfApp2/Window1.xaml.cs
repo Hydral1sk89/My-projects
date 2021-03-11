@@ -21,17 +21,15 @@ namespace WpfApp2
     /// </summary>
     public partial class Window1 : Window
     {
-        MainWindow MW = new MainWindow();
-
-
         public string sFileNames;
 
         private Border _srcPanel;
+        private readonly MainWindow _mainWindow;
 
-        public Window1(Border srcPanel)
+        public Window1(Border srcPanel, MainWindow mainWindow)
         {
             _srcPanel = srcPanel;
-
+            _mainWindow = mainWindow;
             InitializeComponent();
         }
 
@@ -96,21 +94,23 @@ namespace WpfApp2
                         {
                             MessageBox.Show("Дата в нужном диапазоне");
 
-                            MW.Blist.Add(new OnePageList(Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
+                            _mainWindow.Blist.Add(new OnePageList(Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
                         array[2], Convert.ToDateTime(array[3]), array[4]));
 
                         
                         }
                     }
                 }
-
                 //Почему то не добавляет
-                MW.dgTodoList.ItemsSource = MW.Blist;
+                _mainWindow.dgTodoList.ItemsSource = _mainWindow.Blist;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            
+            MessageBox.Show("Blist.Count = " + Convert.ToString(_mainWindow.Blist.Count()));
+            _mainWindow.dgTodoList.ItemsSource = _mainWindow.Blist;
         }
     }
     

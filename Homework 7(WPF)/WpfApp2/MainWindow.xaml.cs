@@ -47,7 +47,6 @@ namespace WpfApp2
 
         //объявляем переменную Blist типа BindingList. BindingList нужен потому что в дальнейшем будем использовать метод .ListChanged
         public BindingList<OnePageList> Blist = new BindingList<OnePageList>();
-
         string PATH = $"{Environment.CurrentDirectory}\\Data.csv";
         FileIOService _fileIOService;
 
@@ -301,7 +300,7 @@ namespace WpfApp2
         {
             //Вызываем окно диапазон импорта
             Border panel = sender as Border;
-            Window1 popup = new Window1(panel);
+            Window1 popup = new Window1(panel, this);
             popup.ShowDialog();
 
             //DateTime forDate = new DateTime();
