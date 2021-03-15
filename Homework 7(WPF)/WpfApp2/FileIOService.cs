@@ -17,12 +17,12 @@ namespace WpfApp2
 {
     class FileIOService
     {
-        MainWindow B = new MainWindow();
-
         string PATH;
+        private readonly MainWindow _mainWindow;
 
-        public FileIOService(string path)
+        public FileIOService(string path, MainWindow mainWindow)
         {
+            _mainWindow = mainWindow;
             PATH = path;
         }
 
@@ -48,13 +48,13 @@ namespace WpfApp2
                     while ((line = sr.ReadLine()) != null)
                     {
                         array = line.Split(',').ToArray();
-                        B.Blist.Add(new OnePageList(Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
+                       _mainWindow.Blist.Add(new OnePageList(Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
                     array[2], Convert.ToDateTime(array[3]), array[4]));
                     }
 
                     if (line == null)
                     {
-                        B.Blist.Add(new OnePageList(DateTime.Now, false,
+                        _mainWindow.Blist.Add(new OnePageList(DateTime.Now, false,
                         "text", DateTime.Now, "text"));
                     }
                 }
@@ -63,7 +63,7 @@ namespace WpfApp2
             {
                 MessageBox.Show(ex.Message);
             }
-            return B.Blist;
+            return _mainWindow.Blist;
         }
         
         public void SaveData(object todoDataList, string PATH)
@@ -72,15 +72,14 @@ namespace WpfApp2
             using (StreamWriter writer = new StreamWriter(PATH, false, Encoding.GetEncoding(1251)))
             {
                 string[] array = new string[5];
-                string output;
 
-                for (int i = 0; i < B.Blist.Count; i++)
+                for (int i = 0; i < _mainWindow.Blist.Count; i++)
                 {
-                    array[0] = Convert.ToString(B.Blist[i].CreationDate);
-                    array[1] = Convert.ToString(B.Blist[i].IsDone);
-                    array[2] = B.Blist[i].Todo;
-                    array[3] = Convert.ToString(B.Blist[i].Deadline);
-                    array[4] = B.Blist[i].Description;
+                    array[0] = Convert.ToString(_mainWindow.Blist[i].CreationDate);
+                    array[1] = Convert.ToString(_mainWindow.Blist[i].IsDone);
+                    array[2] = _mainWindow.Blist[i].Todo;
+                    array[3] = Convert.ToString(_mainWindow.Blist[i].Deadline);
+                    array[4] = _mainWindow.Blist[i].Description;
 
                     writer.WriteLine(array[0] + "," + array[1] + "," + array[2] + "," + array[3] + "," + array[4]);
                 }

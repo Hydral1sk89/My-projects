@@ -56,7 +56,7 @@ namespace WpfApp2
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _fileIOService = new FileIOService(PATH);
+            _fileIOService = new FileIOService(PATH, this);
 
             if (Blist.Count < 1)
             {
