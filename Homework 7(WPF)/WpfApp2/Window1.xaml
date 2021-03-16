@@ -21,8 +21,8 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TextBlock Margin="10,0,0,10" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Width="300" Height="30" Text="Select date range by creation date or deadline date" />
-        <RadioButton Margin="25,5,0,10" Grid.Column="0" Grid.Row="3" GroupName="Import_date" Content="Creation date" IsChecked="true"/>
-        <RadioButton Margin="25,5,0,10" Grid.Column="1" Grid.Row="3" GroupName="Import_date" Content="Deadline date"/>
+        <RadioButton Margin="25,5,0,10" Grid.Column="0" Grid.Row="3" GroupName="Import_date" Content="Creation date" IsChecked="true" Checked="CreationDate_Checked"/>
+        <RadioButton Margin="25,5,0,10" Grid.Column="1" Grid.Row="3" GroupName="Import_date" Content="Deadline date" Checked="DeadlineDate_Checked"/>
         <TextBlock Margin="60,0,0,10" Text="For" Grid.Column="0" Grid.Row="4"/>
         <TextBlock Margin="60,0,0,10" Text="To" Grid.Column="1" Grid.Row="4"/>
         <TextBox x:Name="For" Grid.Column="0" Grid.Row="5"/>

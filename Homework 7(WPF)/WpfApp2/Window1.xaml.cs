@@ -65,9 +65,29 @@ namespace WpfApp2
             }
         }
 
+        bool creationDate;
+        bool deadlineDate;
+
+        private void CreationDate_Checked(object sender, RoutedEventArgs e)
+        {
+            creationDate = true;
+            deadlineDate = false;
+
+            //MessageBox.Show("CreationDate = " + creationDate);
+            //MessageBox.Show("deadlineDate = " + deadlineDate);
+        }
+
+        private void DeadlineDate_Checked(object sender, RoutedEventArgs e)
+        {
+            creationDate = false;
+            deadlineDate = true;
+
+            //MessageBox.Show("CreationDate = " + creationDate);
+            //MessageBox.Show("deadlineDate = " + deadlineDate);
+        }
         private void Import_Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Import button was pressed");
+            //MessageBox.Show("Import button was pressed");
 
             string _for = For.Text;
             string _to = To.Text;
@@ -90,18 +110,28 @@ namespace WpfApp2
                     {
                         array = line.Split(',').ToArray();
 
-                        if (DateFor <= Convert.ToDateTime(array[0]) && DateTo >= Convert.ToDateTime(array[0]))
+                        if (creationDate)
                         {
-                            MessageBox.Show("Дата в нужном диапазоне");
+                            if (DateFor <= Convert.ToDateTime(array[0]) && DateTo >= Convert.ToDateTime(array[0]))
+                            {
+                                //MessageBox.Show("CreationDate Дата в нужном диапазоне");
 
-                            _mainWindow.Blist.Add(new OnePageList(Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
-                        array[2], Convert.ToDateTime(array[3]), array[4]));
+                                _mainWindow.Blist.Add(new OnePageList(Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
+                            array[2], Convert.ToDateTime(array[3]), array[4]));
+                            }
+                        }
+                        else
+                        {
+                            if (DateFor <= Convert.ToDateTime(array[3]) && DateTo >= Convert.ToDateTime(array[3]))
+                            {
+                                //MessageBox.Show("Deadline Дата в нужном диапазоне");
 
-                        
+                                _mainWindow.Blist.Add(new OnePageList(Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
+                            array[2], Convert.ToDateTime(array[3]), array[4]));
+                            }
                         }
                     }
                 }
-                //Почему то не добавляет
                 _mainWindow.dgTodoList.ItemsSource = _mainWindow.Blist;
             }
             catch (Exception ex)
@@ -112,6 +142,7 @@ namespace WpfApp2
             MessageBox.Show("Blist.Count = " + Convert.ToString(_mainWindow.Blist.Count()));
             _mainWindow.dgTodoList.ItemsSource = _mainWindow.Blist;
         }
+
     }
     
 }

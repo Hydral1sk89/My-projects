@@ -90,6 +90,7 @@ namespace WpfApp2
                     array[2], Convert.ToDateTime(array[3]), array[4] )};
         }
 
+        
         /// <summary>
         /// добавляем ещё одну строку
         /// </summary>
@@ -132,7 +133,6 @@ namespace WpfApp2
 
         void File_Open_Click(object sender, RoutedEventArgs e)
         {
-
 
             fileDialog.Multiselect = false;
             fileDialog.Filter = "CSV Files|*.csv";
@@ -304,10 +304,29 @@ namespace WpfApp2
             popup.ShowDialog();
 
             //DateTime forDate = new DateTime();
-            //DateTime toDate = new DateTime();
-
-            
+            //DateTime toDate = new DateTime();   
         }
-                #endregion
+        
+
+        private void CreationDate_Sort_Ascending(object sender, RoutedEventArgs e)
+        {
+            Blist.
+        }
+
+        private void CreationDate_Sort_Decreasing(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeadlineDate_Sort_Ascending(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeadlineDate_Sort_Decreasing(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
+    #endregion
 }
