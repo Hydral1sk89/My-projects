@@ -68,7 +68,6 @@ namespace WpfApp2
         
         public void SaveData(object todoDataList, string PATH)
         {
-            //using (StreamWriter writer = File.CreateText(PATH))
             using (StreamWriter writer = new StreamWriter(PATH, false, Encoding.GetEncoding(1251)))
             {
                 string[] array = new string[5];

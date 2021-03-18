@@ -63,23 +63,11 @@ namespace WpfApp2
                 Blist.Add(new OnePageList(DateTime.Now, false, "", DateTime.Now, ""));
             }
 
-            //try
-            //{
-            //    Blist = _fileIOService.LoadData();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //    Close();
-            //}
-
             //добавляет заполненную строку на экран приложения
             dgTodoList.ItemsSource = Blist;
 
             //Подписываемся на событие
             Blist.ListChanged += _todoDataList_ListChanged;
-
-            //MessageBox.Show(Convert.ToString(Blist.Count));
         }
 
         public BindingList<OnePageList> AddBlist(string[] arr)
@@ -89,7 +77,6 @@ namespace WpfApp2
             return new BindingList<OnePageList>() {new OnePageList ( Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
                     array[2], Convert.ToDateTime(array[3]), array[4] )};
         }
-
         
         /// <summary>
         /// добавляем ещё одну строку
@@ -102,28 +89,6 @@ namespace WpfApp2
                 {
                     Blist.Add(new OnePageList(DateTime.Now, false,"", DateTime.Now, ""));
                 }
-                //if((Blist[Blist.Count-1].Description != "") && (Blist[Blist.Count-1].Todo != ""))
-                //{
-                //    Blist.Add(new OnePageList(DateTime.Now, false, "", DateTime.Now, ""));
-                //}
-
-                //    //    Blist = new BindingList<OnePageList>() {
-                //    //    new OnePageList(DateTime.Now, false, "сделать домашку", DateTime.Now, "мне необходимо сдлать домашнюю работу"),
-                //    //    new OnePageList(DateTime.Now, false, "сделать домашку", DateTime.Now, "мне необходимо сдлать домашнюю работу")
-
-                    //    //};
-                    //    //MessageBox.Show("change");
-                    //    //dgTodoList.ItemsSource = Blist;
-                    //    //MessageBox.Show(Convert.ToString(Blist.Count));
-                    //    try
-                    //    {
-                    //        _fileIOService.SaveData(sender);
-                    //    }
-                    //    catch (Exception ex)
-                    //    {
-                    //        MessageBox.Show(ex.Message);
-                    //        Close();
-                    //    }
             }
         }
 
@@ -157,7 +122,6 @@ namespace WpfApp2
                     }
 
                     sFileNames = sFileNames.Substring(1);
-                    // /
 
                     string[] array;
 
@@ -178,9 +142,6 @@ namespace WpfApp2
                 {
                     MessageBox.Show(ex.Message);
                 }
-
-                //MessageBox.Show("test");
-
             }
         }
 
@@ -199,7 +160,6 @@ namespace WpfApp2
             }
         }
 
-        //необходимо доделать диапазон импорта (https://www.youtube.com/watch?v=b5K9LXBXUjI&ab_channel=IAmTimCorey)
         void File_Import_Click(object sender, RoutedEventArgs e)
         {
             fileDialog.Multiselect = false;
@@ -221,7 +181,6 @@ namespace WpfApp2
                     }
 
                     sFileNames = sFileNames.Substring(1);
-                    // /
 
                     string[] array;
 
@@ -285,15 +244,13 @@ namespace WpfApp2
                     }
 
                     sFileNames = sFileNames.Substring(1);
-                    // /
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
             }
-
-            
+         
         }
 
         void File_Import_range_Click(object sender, RoutedEventArgs e)
@@ -301,31 +258,35 @@ namespace WpfApp2
             //Вызываем окно диапазон импорта
             Border panel = sender as Border;
             Window1 popup = new Window1(panel, this);
-            popup.ShowDialog();
-
-            //DateTime forDate = new DateTime();
-            //DateTime toDate = new DateTime();   
+            popup.ShowDialog();  
         }
         
-
         private void CreationDate_Sort_Ascending(object sender, RoutedEventArgs e)
         {
-            Blist.
+            var sortedListInstance = new BindingList<OnePageList>(Blist.OrderBy(x => x.CreationDate).ToList());
+            Blist = sortedListInstance;
+            dgTodoList.ItemsSource = Blist;
         }
 
         private void CreationDate_Sort_Decreasing(object sender, RoutedEventArgs e)
         {
-
+            var sortedListInstance = new BindingList<OnePageList>(Blist.OrderByDescending(x => x.CreationDate).ToList());
+            Blist = sortedListInstance;
+            dgTodoList.ItemsSource = Blist;
         }
 
         private void DeadlineDate_Sort_Ascending(object sender, RoutedEventArgs e)
         {
-
+            var sortedListInstance = new BindingList<OnePageList>(Blist.OrderBy(x => x.Deadline).ToList());
+            Blist = sortedListInstance;
+            dgTodoList.ItemsSource = Blist;
         }
 
         private void DeadlineDate_Sort_Decreasing(object sender, RoutedEventArgs e)
         {
-
+            var sortedListInstance = new BindingList<OnePageList>(Blist.OrderByDescending(x => x.Deadline).ToList());
+            Blist = sortedListInstance;
+            dgTodoList.ItemsSource = Blist;
         }
     }
     #endregion

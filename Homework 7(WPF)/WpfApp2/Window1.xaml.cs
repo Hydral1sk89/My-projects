@@ -56,7 +56,6 @@ namespace WpfApp2
                     sFileNames = sFileNames.Substring(1);
 
                     textpath.Text = sFileNames;
-                    // /
                 }
                 catch (Exception ex)
                 {
@@ -72,23 +71,15 @@ namespace WpfApp2
         {
             creationDate = true;
             deadlineDate = false;
-
-            //MessageBox.Show("CreationDate = " + creationDate);
-            //MessageBox.Show("deadlineDate = " + deadlineDate);
         }
 
         private void DeadlineDate_Checked(object sender, RoutedEventArgs e)
         {
             creationDate = false;
             deadlineDate = true;
-
-            //MessageBox.Show("CreationDate = " + creationDate);
-            //MessageBox.Show("deadlineDate = " + deadlineDate);
         }
         private void Import_Button_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("Import button was pressed");
-
             string _for = For.Text;
             string _to = To.Text;
 
@@ -114,8 +105,6 @@ namespace WpfApp2
                         {
                             if (DateFor <= Convert.ToDateTime(array[0]) && DateTo >= Convert.ToDateTime(array[0]))
                             {
-                                //MessageBox.Show("CreationDate Дата в нужном диапазоне");
-
                                 _mainWindow.Blist.Add(new OnePageList(Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
                             array[2], Convert.ToDateTime(array[3]), array[4]));
                             }
@@ -124,8 +113,6 @@ namespace WpfApp2
                         {
                             if (DateFor <= Convert.ToDateTime(array[3]) && DateTo >= Convert.ToDateTime(array[3]))
                             {
-                                //MessageBox.Show("Deadline Дата в нужном диапазоне");
-
                                 _mainWindow.Blist.Add(new OnePageList(Convert.ToDateTime(array[0]), Convert.ToBoolean(array[1]),
                             array[2], Convert.ToDateTime(array[3]), array[4]));
                             }
@@ -137,9 +124,8 @@ namespace WpfApp2
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
+            }          
             
-            MessageBox.Show("Blist.Count = " + Convert.ToString(_mainWindow.Blist.Count()));
             _mainWindow.dgTodoList.ItemsSource = _mainWindow.Blist;
         }
 
